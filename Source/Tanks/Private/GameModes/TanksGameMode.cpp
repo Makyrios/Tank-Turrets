@@ -3,6 +3,7 @@
 
 #include "GameModes/TanksGameMode.h"
 #include "UObject/ConstructorHelpers.h"
+#include <Kismet/GameplayStatics.h>
 
 ATanksGameMode::ATanksGameMode()
 {
@@ -11,5 +12,48 @@ ATanksGameMode::ATanksGameMode()
 	if (PlayerPawnBPClass.Class != NULL)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
+	}
+}
+
+void ATanksGameMode::HandleTankKilled()
+{
+	StopGame(false);
+}
+
+void ATanksGameMode::HandleTurretKilled()
+{
+	
+}
+
+void ATanksGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+
+	TanksPlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
+
+	HandleGameStart();
+}
+
+void ATanksGameMode::HandleGameStart()
+{
+	StartGame();
+
+	if (TanksPlayerController != nullptr)
+	{
+		TanksPlayerController->SetPlayerEnabledState(false);
+
+		FTimerHandle PlayerEnableTimerHandle;
+		FTimerDelegate TimerDelegate = FTimerDelegate::CreateUObject(
+			TanksPlayerController,
+			&APlayerControllerBase::SetPlayerEnabledState,
+			true
+		);
+		GetWorldTimerManager().SetTimer(
+			PlayerEnableTimerHandle,
+			TimerDelegate,
+			StartGameDelay,
+			false
+		);
+
 	}
 }

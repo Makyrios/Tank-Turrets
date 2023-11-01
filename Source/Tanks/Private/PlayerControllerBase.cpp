@@ -15,13 +15,14 @@ void APlayerControllerBase::BeginPlay()
 	if (!PlayerChar) {return;}
 	
 	
-	if (APlayerController* PlayerController = Cast<APlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
+	// Why set mapping context here and in SetupInputComponent?
+	/*if (APlayerController* PlayerController = Cast<APlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
-	}
+	}*/
 }
 
 void APlayerControllerBase::SetupInputComponent()
@@ -76,6 +77,21 @@ void APlayerControllerBase::Shoot(const FInputActionValue& Value)
 	{
 		PlayerChar->Fire();
 		LastShootTime = CurrentTime; // Override LastShootTime (contains last shoot time) with time when actual shoot is happening
+	}
+}
+
+void APlayerControllerBase::SetPlayerEnabledState(bool bEnableInput)
+{
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		if (bEnableInput)
+		{
+			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
+		else
+		{
+			Subsystem->ClearAllMappings();
+		}
 	}
 }
 

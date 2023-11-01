@@ -39,4 +39,6 @@ protected:
 
 	float LastShootTime = 0.f;
 	
+public:
+	void SetPlayerEnabledState(bool bEnableInput);
 };
