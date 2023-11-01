@@ -4,6 +4,7 @@
 #include "PawnBase.h"
 #include "Projectile.h"
 #include "Camera/CameraComponent.h"
+#include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -12,16 +13,16 @@ APawnBase::APawnBase()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule Collider"));
-	RootComponent = CapsuleComponent;
 	
 	MeshBase = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Base"));
-	MeshBase->SetupAttachment(RootComponent);
-
+	RootComponent = MeshBase;
+	
 	MeshTower = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Tower"));
 	MeshTower->SetupAttachment(MeshBase);
 
+	MeshMuzzle = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Muzzle"));
+	MeshMuzzle->SetupAttachment(MeshTower);
+	
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm Component"));
 	SpringArmComponent->SetupAttachment(RootComponent);
 	
@@ -29,7 +30,7 @@ APawnBase::APawnBase()
 	CameraComponent->SetupAttachment(SpringArmComponent);
 
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
-	ProjectileSpawnPoint->SetupAttachment(MeshTower);
+	ProjectileSpawnPoint->SetupAttachment(MeshMuzzle);
 }
 
 

@@ -14,7 +14,8 @@ UCLASS()
 class TANKS_API ATurret : public APawnBase
 {
 	GENERATED_BODY()
-
+public:
+	virtual void Fire() override;
 protected:
 	
 	virtual void BeginPlay() override;
@@ -23,8 +24,8 @@ private:
 
 	TObjectPtr<class ATank> PlayerTank{nullptr};
 	
-	UPROPERTY(EditAnywhere, Category = Combat, meta = (AllowPrivateAccess = true))
-	float FireRange{ 200.f };
+	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	float FireRange{ 2000.f };
 
 	void AssessFireCondition();
 	

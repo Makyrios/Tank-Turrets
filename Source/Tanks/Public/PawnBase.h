@@ -16,7 +16,7 @@ class TANKS_API APawnBase : public APawn
 public:
 	APawnBase();
 	
-	void Fire();
+	virtual void Fire();
 	void RotateTower(FVector LookAtTarget);
 	
 	float GetFireRate() const { return FireRate; }
@@ -30,8 +30,8 @@ protected:
 	TObjectPtr<UStaticMeshComponent> MeshTower{nullptr};
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	TObjectPtr<class UCapsuleComponent> CapsuleComponent{nullptr};
-
+	TObjectPtr<UStaticMeshComponent> MeshMuzzle{nullptr};
+	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<class UCameraComponent> CameraComponent{nullptr};
 
