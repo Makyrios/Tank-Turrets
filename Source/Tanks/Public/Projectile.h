@@ -14,17 +14,22 @@ class TANKS_API AProjectile : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AProjectile();
-
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<UStaticMeshComponent> ProjectileMesh{nullptr};
+	
+	virtual void Tick(float DeltaTime) override;
+	
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UProjectileMovementComponent> ProjectileMovementComponent{nullptr};
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UStaticMeshComponent> ProjectileMesh{nullptr};
+	
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& HitResult);
+
+	UPROPERTY(EditAnywhere)
+	float ProjectileDamage{10.f};
 
 };

@@ -31,11 +31,12 @@ protected:
 
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
-
+	virtual void Tick(float DeltaSeconds) override;
+	
 	void MoveForward(const struct FInputActionValue& Value);
 	void MoveSideway(const struct FInputActionValue& Value);
 	void Shoot(const struct FInputActionValue& Value);
-	
 
-	virtual void Tick(float DeltaSeconds) override;
+	float LastShootTime = 0.f;
+	
 };

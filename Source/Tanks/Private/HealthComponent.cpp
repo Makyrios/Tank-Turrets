@@ -12,29 +12,9 @@ UHealthComponent::UHealthComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
+	
 }
 
-
-// Called when the game starts
-void UHealthComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	Health = MaxHealth;
-	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DamageTaken);
-
-	GM = Cast<ATanksGameMode>(UGameplayStatics::GetGameMode(this));
-}
-
-// Called every frame
-void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
 
 void UHealthComponent::DamageTaken(AActor* DamageActor, float Damage, const UDamageType* DamageType,
 	AController* Instigator, AActor* DamageCauser)
@@ -42,7 +22,25 @@ void UHealthComponent::DamageTaken(AActor* DamageActor, float Damage, const UDam
 	if (Damage <= 0.f) return;
 
 	Health -= Damage;
-
+	UE_LOG(LogTemp, Warning, TEXT("%f"), Health);
 	
 }
+
+void UHealthComponent::BeginPlay()
+{
+	Super::BeginPlay();
+
+	Health = MaxHealth;
+	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DamageTaken);
+	
+}
+
+void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+
+}
+
+
 

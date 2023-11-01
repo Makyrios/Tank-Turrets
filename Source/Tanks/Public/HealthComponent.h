@@ -13,23 +13,19 @@ class TANKS_API UHealthComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
 	UHealthComponent();
-
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
-	float MaxHealth = 100.f;
-	float Health = 0.f;
-
+	
 	UFUNCTION()
 	void DamageTaken(AActor* DamageActor, float Damage, const UDamageType* DamageType, AController* Instigator, AActor* DamageCauser);
+	
+	float GetHealth() const { return Health; }
+	
+protected:
+	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	TObjectPtr<class ATanksGameMode> GM;
+private:
+	UPROPERTY(EditAnywhere,Category = "Health" , meta = (AllowPrivateAccess = true))
+	float MaxHealth = 100.f;
+	float Health = 0.f;
 };

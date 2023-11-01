@@ -2,7 +2,6 @@
 
 
 #include "PawnBase.h"
-
 #include "Projectile.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -33,14 +32,8 @@ APawnBase::APawnBase()
 	ProjectileSpawnPoint->SetupAttachment(MeshTower);
 }
 
-// Called when the game starts or when spawned
-void APawnBase::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
 
-void APawnBase::RotateTurret(FVector LookAtTarget)
+void APawnBase::RotateTower(FVector LookAtTarget)
 {
 	FVector TargetLocation = LookAtTarget - MeshTower->GetComponentLocation();
 	FRotator MeshRotation{0.f, TargetLocation.Rotation().Yaw, 0.f};
@@ -49,18 +42,13 @@ void APawnBase::RotateTurret(FVector LookAtTarget)
 		GetWorld()->GetDeltaSeconds(), TowerRotationSpeed));
 }
 
+
 void APawnBase::Fire()
 {
 	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentTransform());
-	
 }
 
-// Called every frame
-void APawnBase::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 
-}
 
 
 

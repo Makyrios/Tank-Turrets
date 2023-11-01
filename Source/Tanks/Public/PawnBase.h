@@ -13,10 +13,16 @@ UCLASS()
 class TANKS_API APawnBase : public APawn
 {
 	GENERATED_BODY()
-
 public:
-	// Sets default values for this pawn's properties
 	APawnBase();
+	
+	void Fire();
+	void RotateTower(FVector LookAtTarget);
+	
+	float GetFireRate() const { return FireRate; }
+	
+protected:
+	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshBase{nullptr};
 
@@ -38,18 +44,15 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Components")
 	TSubclassOf<class AProjectile> ProjectileClass;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float TowerRotationSpeed{10.f};
-
 	
-	void Fire();
-	void RotateTurret(FVector LookAtTarget);
+	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	float FireRate{2.f};
+	FTimerHandle FireRateTimer;
 	
-	virtual void Tick(float DeltaTime) override;
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	
+	
 	
 	
 	
