@@ -25,6 +25,11 @@ void ATurret::Fire()
 	Super::Fire();
 }
 
+void ATurret::SetFireRange(float newRange)
+{
+	FireRange = newRange;
+}
+
 void ATurret::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);

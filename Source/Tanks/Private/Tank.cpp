@@ -3,3 +3,12 @@
 
 #include "Tank.h"
 
+void ATank::SetMovingSpeed(float newMovingSpeed)
+{
+	MovingSpeed = newMovingSpeed;
+}
+
+void ATank::SetRotationSpeed(float newRotationSpeed)
+{
+	RotationSpeed = RotationSpeed;
+}
