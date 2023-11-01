@@ -26,8 +26,7 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float FireRange{ 2000.f };
-
-	void AssessFireCondition();
+	
 	
 	bool InFireRange();
 };

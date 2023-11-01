@@ -10,44 +10,30 @@
 
 
 
-
 void ATurret::BeginPlay()
 {
 	Super::BeginPlay();
 	
 	PlayerTank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
 	
-	
 	GetWorldTimerManager().SetTimer(FireRateTimer, this, &ATurret::Fire, FireRate, true);
 	
-	
 }
+
 void ATurret::Fire()
 {
 	Super::Fire();
-}
-void ATurret::AssessFireCondition()
-{
-	if (InFireRange())
-	{
-		Fire();
-	}
 }
 
 void ATurret::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	if (!PlayerTank) return;
 	
-	FRotator Rotator = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), PlayerTank->GetActorLocation());
 	if (InFireRange())
 	{
-		MeshMuzzle->SetRelativeRotation(Rotator);
 		RotateTower(PlayerTank->GetActorLocation());
 	}
-	
 }
-
 
 bool ATurret::InFireRange()
 {
