@@ -41,8 +41,7 @@ void APlayerControllerBase::SetupInputComponent()
 		// Bind the actions
 		UEI->BindAction(ForwardMoving.Get(), ETriggerEvent::Triggered, this, &ThisClass::MoveForward);
 		UEI->BindAction(SidewaysMoving.Get(), ETriggerEvent::Triggered, this, &ThisClass::MoveSideway);
-		UEI->BindAction(ShootAction.Get(), ETriggerEvent::Triggered, this, &ThisClass::Shoot);
-		//UEI->BindAction(LookAction.Get(), ETriggerEvent::Triggered, this, &ThisClass::Look);
+		UEI->BindAction(ShootAction.Get(), ETriggerEvent::Started, this, &ThisClass::Shoot);
 	}
 }
 
@@ -50,15 +49,11 @@ void APlayerControllerBase::MoveForward(const FInputActionValue& Value)
 {
 	if (PlayerChar)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%f"), Value.Get<float>());
 		FVector DeltaLocation(0.f);
+		DeltaLocation.X = Value.Get<float>() * GetWorld()->GetDeltaSeconds() * PlayerChar->GetSpeed();
 		
-		float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
-		DeltaLocation.X = Value.Get<float>() * DeltaTime * PlayerChar->GetSpeed();
 		PlayerChar->AddActorLocalOffset(DeltaLocation, true);
 	}
-	
-	
 }
 
 void APlayerControllerBase::MoveSideway(const FInputActionValue& Value)
@@ -66,20 +61,21 @@ void APlayerControllerBase::MoveSideway(const FInputActionValue& Value)
 	if (PlayerChar)
 	{
 		FRotator DeltaRotation(0.f);
-		float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
-		DeltaRotation.Yaw = Value.Get<float>() * DeltaTime * PlayerChar->GetRotationSpeed();
+		DeltaRotation.Yaw = Value.Get<float>() * GetWorld()->GetDeltaSeconds() * PlayerChar->GetRotationSpeed();
+		
 		PlayerChar->AddActorLocalRotation(DeltaRotation);
 	}
-	
 }
-
 
 void APlayerControllerBase::Shoot(const FInputActionValue& Value)
 {
-	
-	if (PlayerChar)
+	if (!PlayerChar) return;
+
+	float CurrentTime = GetWorld()->GetTimeSeconds();
+	if (CurrentTime - LastShootTime >= PlayerChar->GetFireRate()) // Check if Xsec (FireRate) is passed from the last shoot
 	{
 		PlayerChar->Fire();
+		LastShootTime = CurrentTime; // Override LastShootTime (contains last shoot time) with time when actual shoot is happening
 	}
 }
 
@@ -90,6 +86,9 @@ void APlayerControllerBase::Tick(float DeltaSeconds)
 
 	FHitResult Result;
 	GetHitResultUnderCursor(ECC_Visibility, false, Result);
-
-	PlayerChar->RotateTurret(Result.Location);
+	if (PlayerChar)
+	{
+		PlayerChar->RotateTower(Result.Location);
+	}
+	
 }
