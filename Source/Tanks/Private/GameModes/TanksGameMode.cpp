@@ -22,7 +22,13 @@ void ATanksGameMode::HandleTankKilled()
 
 void ATanksGameMode::HandleTurretKilled()
 {
-	
+	if (TanksGameState != nullptr)
+	{
+		if (--TanksGameState->TurretAmount <= 0)
+		{
+			StopGame(true);
+		}
+	}
 }
 
 void ATanksGameMode::BeginPlay()
@@ -30,6 +36,7 @@ void ATanksGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	TanksPlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
+	TanksGameState = Cast<ATanksGameState>(GameState);
 
 	HandleGameStart();
 }

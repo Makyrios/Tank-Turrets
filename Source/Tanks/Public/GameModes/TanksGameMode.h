@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include <PlayerControllerBase.h>
+#include "TanksGameState.h"
 #include "TanksGameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -34,6 +35,7 @@ protected:
 
 private:
 	TObjectPtr<APlayerControllerBase> TanksPlayerController;
+	TObjectPtr<ATanksGameState> TanksGameState;
 
 
 	void HandleGameStart();
