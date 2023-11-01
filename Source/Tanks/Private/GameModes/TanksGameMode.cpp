@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "TanksGameMode.h"
-#include "TanksCharacter.h"
+
+#include "GameModes/TanksGameMode.h"
 #include "UObject/ConstructorHelpers.h"
 
 ATanksGameMode::ATanksGameMode()
