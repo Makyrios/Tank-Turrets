@@ -17,6 +17,8 @@ class TANKS_API ATank : public APawnBase
 public:
 	float GetSpeed() {return MovingSpeed;}
 	float GetRotationSpeed() {return RotationSpeed;}
+	void SetMovingSpeed(float newMovingSpeed);
+	void SetRotationSpeed(float newRotationSpeed);
 private:
 
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))

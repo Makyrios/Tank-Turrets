@@ -34,6 +34,11 @@ void ATurret::AssessFireCondition()
 	}
 }
 
+void ATurret::SetFireRange(float newRange)
+{
+	FireRange = newRange;
+}
+
 void ATurret::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
