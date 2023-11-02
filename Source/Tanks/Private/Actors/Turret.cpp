@@ -7,6 +7,10 @@
 
 
 
+ATurret::ATurret()
+{
+	Tags.Add(FName("Turret"));
+}
 
 void ATurret::BeginPlay()
 {
@@ -17,6 +21,7 @@ void ATurret::BeginPlay()
 	GetWorldTimerManager().SetTimer(FireRateTimer, this, &ATurret::Fire, FireRate, true);
 	
 }
+
 
 void ATurret::Fire()
 {

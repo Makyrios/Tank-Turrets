@@ -15,6 +15,8 @@ class TANKS_API ATank : public APawnBase
 	GENERATED_BODY()
 
 public:
+	ATank();
+
 	float GetSpeed() {return MovingSpeed;}
 	float GetRotationSpeed() {return RotationSpeed;}
 	void SetMovingSpeed(float NewMovingSpeed);

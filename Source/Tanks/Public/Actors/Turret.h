@@ -14,7 +14,10 @@ UCLASS()
 class TANKS_API ATurret : public APawnBase
 {
 	GENERATED_BODY()
+
 public:
+	ATurret();
+
 	virtual void Fire() override;
 	void SetFireRange(float NewRange);
 protected:
