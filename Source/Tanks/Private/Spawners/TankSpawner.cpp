@@ -3,17 +3,12 @@
 
 #include "Spawners/TankSpawner.h"
 
-void ATankSpawner::BeginPlay()
-{
-	Super::BeginPlay();
-	SpawnObject();
-}
 
 void ATankSpawner::SpawnObject()
 {
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.Owner = this;
-	SpawnedActor = GetWorld()->SpawnActor<ATank>(ACtorToCreate, GetActorLocation(), FRotator::ZeroRotator, SpawnParams);
+	SpawnedActor = GetWorld()->SpawnActor<ATank>(ActorToCreate, GetActorLocation(), FRotator::ZeroRotator, SpawnParams);
 	if (SpawnedActor)
 	{
 		SetObjectData();
@@ -24,4 +19,10 @@ void ATankSpawner::SetObjectData()
 {
 	SpawnedActor->SetRotationSpeed(RotationSpeed);
 	SpawnedActor->SetMovingSpeed(MovingSpeed);
+}
+
+void ATankSpawner::BeginPlay()
+{
+	Super::BeginPlay();
+	SpawnObject();
 }

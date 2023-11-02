@@ -3,17 +3,12 @@
 
 #include "Spawners/TurretSpawner.h"
 
-void ATurretSpawner::BeginPlay()
-{
-	Super::BeginPlay();
-	SpawnObject();
-}
 
 void ATurretSpawner::SpawnObject()
 {	
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.Owner = this;
-	SpawnedActor = GetWorld()->SpawnActor<ATurret>(ACtorToCreate, GetActorLocation(), FRotator::ZeroRotator, SpawnParams);
+	SpawnedActor = GetWorld()->SpawnActor<ATurret>(ActorToCreate, GetActorLocation(), FRotator::ZeroRotator, SpawnParams);
 	if (SpawnedActor)
 	{
 		SetObjectData();
@@ -23,4 +18,10 @@ void ATurretSpawner::SpawnObject()
 void ATurretSpawner::SetObjectData()
 {
 	SpawnedActor->SetFireRange(FireRange);
+}
+
+void ATurretSpawner::BeginPlay()
+{
+	Super::BeginPlay();
+	SpawnObject();
 }

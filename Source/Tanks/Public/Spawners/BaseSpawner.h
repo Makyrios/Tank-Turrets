@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "BaseSpawner.generated.h"
 
-UCLASS()
+UCLASS(Abstract)
 class TANKS_API ABaseSpawner : public AActor
 {
 	GENERATED_BODY()
@@ -14,15 +14,10 @@ class TANKS_API ABaseSpawner : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ABaseSpawner();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
+	
 	virtual void Tick(float DeltaTime) override;
-	virtual void SpawnObject();
-	virtual void SetObjectData();
+	virtual void SpawnObject() PURE_VIRTUAL(ThisClass::SpawnObject);
+	virtual void SetObjectData() PURE_VIRTUAL(ThisClass::SetObjectData);
+	
 
 };

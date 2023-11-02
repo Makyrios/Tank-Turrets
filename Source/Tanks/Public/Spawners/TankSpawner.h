@@ -13,11 +13,18 @@ UCLASS()
 class TANKS_API ATankSpawner : public ABaseSpawner
 {
 	GENERATED_BODY()
+public:
+	virtual void SpawnObject() override;
+	virtual void SetObjectData() override;
+	
+protected:
+	virtual void BeginPlay() override;
+	
 private:
-	ATank* SpawnedActor;
+	TObjectPtr<ATank> SpawnedActor;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Spawned Object Settings")
-	TSubclassOf <ATank> ACtorToCreate;
+	TSubclassOf <ATank> ActorToCreate;
 
 	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
 	float MovingSpeed{ 20.f };
@@ -25,10 +32,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
 	float RotationSpeed{ 20.f };
 
-protected:
-	virtual void BeginPlay() override;
 
-public:
-	virtual void SpawnObject() override;
-	virtual void SetObjectData() override;
+
+
 };

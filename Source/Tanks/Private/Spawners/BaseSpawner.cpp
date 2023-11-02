@@ -12,11 +12,7 @@ ABaseSpawner::ABaseSpawner()
 }
 
 // Called when the game starts or when spawned
-void ABaseSpawner::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
+
 
 // Called every frame
 void ABaseSpawner::Tick(float DeltaTime)
@@ -24,11 +20,4 @@ void ABaseSpawner::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ABaseSpawner::SpawnObject()
-{
-}
-
-void ABaseSpawner::SetObjectData()
-{
-}
 

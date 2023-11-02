@@ -12,8 +12,8 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Projectile Mesh"));
-	ProjectileMesh->SetupAttachment(RootComponent);
-
+	RootComponent = ProjectileMesh;
+	
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileMovementComponent->InitialSpeed = 1000.f;
 	ProjectileMovementComponent->MaxSpeed = 1000.f;
@@ -33,15 +33,8 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, ProjectileDamage, GetInstigatorController(), this, UDamageType::StaticClass());
 	}
-
-
+	
 	Destroy();
 }
 
-// Called every frame
-void AProjectile::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 

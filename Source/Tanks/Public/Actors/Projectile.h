@@ -14,8 +14,7 @@ class TANKS_API AProjectile : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AProjectile();
-	
-	virtual void Tick(float DeltaTime) override;
+
 	
 protected:
 	virtual void BeginPlay() override;
@@ -29,7 +28,7 @@ protected:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& HitResult);
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ProjectileDamage{10.f};
 
 };
