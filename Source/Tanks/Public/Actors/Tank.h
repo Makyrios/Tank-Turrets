@@ -21,6 +21,10 @@ public:
 	float GetRotationSpeed() {return RotationSpeed;}
 	void SetMovingSpeed(float NewMovingSpeed);
 	void SetRotationSpeed(float NewRotationSpeed);
+
+protected:
+	void BeginPlay() override;
+
 private:
 
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))

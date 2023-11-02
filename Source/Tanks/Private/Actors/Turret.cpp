@@ -9,12 +9,13 @@
 
 ATurret::ATurret()
 {
-	Tags.Add(FName("Turret"));
 }
 
 void ATurret::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Tags.Add(FName("Turret"));
 	
 	PlayerTank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
 	

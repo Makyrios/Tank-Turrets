@@ -5,7 +5,7 @@
 
 ATank::ATank()
 {
-	Tags.Add(FName("Tank"));
+
 }
 
 void ATank::SetMovingSpeed(float NewMovingSpeed)
@@ -16,4 +16,11 @@ void ATank::SetMovingSpeed(float NewMovingSpeed)
 void ATank::SetRotationSpeed(float NewRotationSpeed)
 {
 	RotationSpeed = NewRotationSpeed;
+}
+
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+
+	Tags.Add(FName("Tank"));
 }
