@@ -89,7 +89,6 @@ bool AMovingPlatform::ReachedEndPoint() const
 
 bool AMovingPlatform::ShouldPlatformReturn() const
 {
-	UE_LOG(LogTemp, Display, TEXT("Num %d"), NumOfReturns);
 	if (!bShouldReturn || NumOfReturns == 0)
 	{
 		return false;
