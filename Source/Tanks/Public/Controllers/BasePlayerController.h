@@ -4,15 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "PlayerControllerBase.generated.h"
+#include "BasePlayerController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TANKS_API APlayerControllerBase : public APlayerController
+class TANKS_API ABasePlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+	ABasePlayerController();
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)

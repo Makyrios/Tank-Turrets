@@ -15,7 +15,6 @@ void ABaseGameMode::HandleActorKilled(AActor* KilledActor)
 
 }
 
-
 void ABaseGameMode::HandleGameStart()
 {
 	StartGame();

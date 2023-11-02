@@ -1,22 +1,27 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Controllers/PlayerControllerBase.h"
+#include "Controllers/BasePlayerController.h"
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Actors/Tank.h"
 
 
-void APlayerControllerBase::BeginPlay()
+ABasePlayerController::ABasePlayerController()
 {
-	Super::BeginPlay();
-	PlayerChar = Cast<ATank>(GetPawn());
-	
-	
+	bShowMouseCursor = true;
+	DefaultMouseCursor = EMouseCursor::Crosshairs;
 }
 
-void APlayerControllerBase::SetupInputComponent()
+void ABasePlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	PlayerChar = Cast<ATank>(GetPawn());
+}
+
+void ABasePlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
@@ -31,13 +36,13 @@ void APlayerControllerBase::SetupInputComponent()
 	if (UEnhancedInputComponent* UEI = Cast<UEnhancedInputComponent>(InputComponent))
 	{
 		// Bind the actions
-		UEI->BindAction(ForwardMoving.Get(), ETriggerEvent::Triggered, this, &ThisClass::MoveForward);
-		UEI->BindAction(SidewaysMoving.Get(), ETriggerEvent::Triggered, this, &ThisClass::MoveSideway);
-		UEI->BindAction(ShootAction.Get(), ETriggerEvent::Started, this, &ThisClass::Shoot);
+		UEI->BindAction(ForwardMoving.Get(), ETriggerEvent::Triggered, this, &ABasePlayerController::MoveForward);
+		UEI->BindAction(SidewaysMoving.Get(), ETriggerEvent::Triggered, this, &ABasePlayerController::MoveSideway);
+		UEI->BindAction(ShootAction.Get(), ETriggerEvent::Started, this, &ABasePlayerController::Shoot);
 	}
 }
 
-void APlayerControllerBase::MoveForward(const FInputActionValue& Value)
+void ABasePlayerController::MoveForward(const FInputActionValue& Value)
 {
 	if (PlayerChar)
 	{
@@ -48,7 +53,7 @@ void APlayerControllerBase::MoveForward(const FInputActionValue& Value)
 	}
 }
 
-void APlayerControllerBase::MoveSideway(const FInputActionValue& Value)
+void ABasePlayerController::MoveSideway(const FInputActionValue& Value)
 {
 	if (PlayerChar)
 	{
@@ -59,7 +64,7 @@ void APlayerControllerBase::MoveSideway(const FInputActionValue& Value)
 	}
 }
 
-void APlayerControllerBase::Shoot(const FInputActionValue& Value)
+void ABasePlayerController::Shoot(const FInputActionValue& Value)
 {
 	if (!PlayerChar) return;
 
@@ -71,7 +76,7 @@ void APlayerControllerBase::Shoot(const FInputActionValue& Value)
 	}
 }
 
-void APlayerControllerBase::SetPlayerEnabledState(bool bEnableInput)
+void ABasePlayerController::SetPlayerEnabledState(bool bEnableInput)
 {
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
@@ -87,7 +92,7 @@ void APlayerControllerBase::SetPlayerEnabledState(bool bEnableInput)
 }
 
 
-void APlayerControllerBase::Tick(float DeltaSeconds)
+void ABasePlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 

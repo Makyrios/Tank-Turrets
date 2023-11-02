@@ -40,7 +40,7 @@ void ATanksGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TanksPlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
+	TanksPlayerController = Cast<ABasePlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 	TanksGameState = Cast<ATanksGameState>(GameState);
 
 	HandleGameStart();
@@ -52,12 +52,13 @@ void ATanksGameMode::HandleGameStart()
 
 	if (TanksPlayerController != nullptr)
 	{
+		UE_LOG(LogTemp, Display, TEXT("CHECK"));
 		TanksPlayerController->SetPlayerEnabledState(false);
 
 		FTimerHandle PlayerEnableTimerHandle;
 		FTimerDelegate TimerDelegate = FTimerDelegate::CreateUObject(
 			TanksPlayerController,
-			&APlayerControllerBase::SetPlayerEnabledState,
+			&ABasePlayerController::SetPlayerEnabledState,
 			true
 		);
 		GetWorldTimerManager().SetTimer(

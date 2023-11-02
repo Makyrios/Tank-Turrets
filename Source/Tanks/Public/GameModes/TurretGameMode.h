@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameModes/BaseGameMode.h"
-#include <Controllers/PlayerControllerBase.h>
+#include <Controllers/BasePlayerController.h>
 #include "GameState/TurretGameState.h"
 #include "TurretGameMode.generated.h"
 
@@ -28,7 +28,7 @@ protected:
 
 private:
 	// Change to turret player controller
-	TObjectPtr<APlayerControllerBase> TurretPlayerController;
+	TObjectPtr<ABasePlayerController> TurretPlayerController;
 	TObjectPtr<ATurretGameState> TurretGameState;
 	
 };

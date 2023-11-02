@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameModes/BaseGameMode.h"
-#include "Controllers/PlayerControllerBase.h"
+#include "Controllers/BasePlayerController.h"
 #include "GameState/TanksGameState.h"
 #include "TanksGameMode.generated.h"
 
@@ -25,7 +25,7 @@ protected:
 	void HandleGameStart() override;
 
 private:
-	TObjectPtr<APlayerControllerBase> TanksPlayerController;
+	TObjectPtr<ABasePlayerController> TanksPlayerController;
 	TObjectPtr<ATanksGameState> TanksGameState;
 
 };

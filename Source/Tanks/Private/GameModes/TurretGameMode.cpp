@@ -43,7 +43,7 @@ void ATurretGameMode::HandleGameStart()
 		FTimerHandle PlayerEnableTimerHandle;
 		FTimerDelegate TimerDelegate = FTimerDelegate::CreateUObject(
 			TurretPlayerController,
-			&APlayerControllerBase::SetPlayerEnabledState,
+			&ABasePlayerController::SetPlayerEnabledState,
 			true
 		);
 		GetWorldTimerManager().SetTimer(
