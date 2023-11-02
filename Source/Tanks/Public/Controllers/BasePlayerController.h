@@ -30,10 +30,10 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 	virtual void Tick(float DeltaSeconds) override;
-	
+	void RotateTowerToCursor();
 	
 	void Shoot(const struct FInputActionValue& Value);
-
+	
 	float LastShootTime = 0.f;
 	
 public:

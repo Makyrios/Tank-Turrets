@@ -71,11 +71,15 @@ void ABasePlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
+	RotateTowerToCursor();
+}
+
+void ABasePlayerController::RotateTowerToCursor()
+{
 	FHitResult Result;
 	GetHitResultUnderCursor(ECC_Visibility, false, Result);
 	if (PlayerChar)
 	{
 		PlayerChar->RotateTower(Result.Location);
 	}
-	
 }
