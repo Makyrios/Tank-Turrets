@@ -17,6 +17,8 @@ public:
 	
 	UFUNCTION()
 	void DamageTaken(AActor* DamageActor, float Damage, const UDamageType* DamageType, AController* Instigator, AActor* DamageCauser);
+
+	void HandleDestroy(AActor* DamageActor);
 	
 	float GetHealth() const { return Health; }
 	

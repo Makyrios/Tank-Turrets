@@ -26,8 +26,18 @@ void UHealthComponent::DamageTaken(AActor* DamageActor, float Damage, const UDam
 
 	if (Health <= 0.f)
 	{
-		DamageActor->Destroy();
+		HandleDestroy(DamageActor);
 	}
+}
+
+void UHealthComponent::HandleDestroy(AActor* DamageActor)
+{
+	ABaseGameMode* GameMode = Cast<ABaseGameMode>(UGameplayStatics::GetGameMode(this));
+	if (GameMode != nullptr)
+	{
+		GameMode->HandleActorKilled(DamageActor);
+	}
+	DamageActor->Destroy();
 }
 
 void UHealthComponent::BeginPlay()
