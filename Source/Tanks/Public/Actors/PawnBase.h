@@ -22,6 +22,10 @@ public:
 	float GetFireRate() const { return FireRate; }
 	
 protected:
+
+	float FireRange{ 2000.f };
+
+	virtual void BeginPlay() override;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshBase{nullptr};

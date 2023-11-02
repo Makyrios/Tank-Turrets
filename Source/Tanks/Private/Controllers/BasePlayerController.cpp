@@ -5,7 +5,6 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "Actors/Tank.h"
 
 
 ABasePlayerController::ABasePlayerController()
@@ -18,7 +17,7 @@ void ABasePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerChar = Cast<ATank>(GetPawn());
+	PlayerChar = Cast<APawnBase>(GetPawn());
 }
 
 void ABasePlayerController::SetupInputComponent()
@@ -36,31 +35,7 @@ void ABasePlayerController::SetupInputComponent()
 	if (UEnhancedInputComponent* UEI = Cast<UEnhancedInputComponent>(InputComponent))
 	{
 		// Bind the actions
-		UEI->BindAction(ForwardMoving.Get(), ETriggerEvent::Triggered, this, &ABasePlayerController::MoveForward);
-		UEI->BindAction(SidewaysMoving.Get(), ETriggerEvent::Triggered, this, &ABasePlayerController::MoveSideway);
 		UEI->BindAction(ShootAction.Get(), ETriggerEvent::Started, this, &ABasePlayerController::Shoot);
-	}
-}
-
-void ABasePlayerController::MoveForward(const FInputActionValue& Value)
-{
-	if (PlayerChar)
-	{
-		FVector DeltaLocation(0.f);
-		DeltaLocation.X = Value.Get<float>() * GetWorld()->GetDeltaSeconds() * PlayerChar->GetSpeed();
-		
-		PlayerChar->AddActorLocalOffset(DeltaLocation, true);
-	}
-}
-
-void ABasePlayerController::MoveSideway(const FInputActionValue& Value)
-{
-	if (PlayerChar)
-	{
-		FRotator DeltaRotation(0.f);
-		DeltaRotation.Yaw = Value.Get<float>() * GetWorld()->GetDeltaSeconds() * PlayerChar->GetRotationSpeed();
-		
-		PlayerChar->AddActorLocalRotation(DeltaRotation);
 	}
 }
 

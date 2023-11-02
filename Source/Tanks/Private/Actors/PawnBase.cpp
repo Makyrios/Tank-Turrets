@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Actors/PawnBase.h"
+
+#include "Controllers/BaseAIController.h"
 #include "Actors/Projectile.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -39,6 +39,17 @@ void APawnBase::RotateTower(FVector LookAtTarget)
 
 	MeshTower->SetWorldRotation(FMath::RInterpTo(MeshTower->GetComponentRotation(), MeshRotation,
 		GetWorld()->GetDeltaSeconds(), TowerRotationSpeed));
+}
+
+void APawnBase::BeginPlay()
+{
+	auto AIController = Cast<ABaseAIController>(GetController());
+	if (AIController != nullptr)
+	{
+		AIController->SetPlayer();
+		AIController->SetFireRate(FireRate);
+		AIController->SetFireRange(FireRange);
+	}
 }
 
 

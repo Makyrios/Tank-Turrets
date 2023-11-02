@@ -18,6 +18,7 @@ void ATurretSpawner::SpawnObject()
 void ATurretSpawner::SetObjectData()
 {
 	SpawnedActor->SetFireRange(FireRange);
+	SpawnedActor->SpawnDefaultController();
 }
 
 void ATurretSpawner::BeginPlay()

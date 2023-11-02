@@ -15,6 +15,7 @@ public:
 	// Sets default values for this actor's properties
 	ABaseSpawner();
 	
+
 	virtual void Tick(float DeltaTime) override;
 	virtual void SpawnObject() PURE_VIRTUAL(ThisClass::SpawnObject);
 	virtual void SetObjectData() PURE_VIRTUAL(ThisClass::SetObjectData);

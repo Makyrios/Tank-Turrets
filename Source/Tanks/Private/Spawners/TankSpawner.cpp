@@ -19,6 +19,7 @@ void ATankSpawner::SetObjectData()
 {
 	SpawnedActor->SetRotationSpeed(RotationSpeed);
 	SpawnedActor->SetMovingSpeed(MovingSpeed);
+	SpawnedActor->SpawnDefaultController();
 }
 
 void ATankSpawner::BeginPlay()

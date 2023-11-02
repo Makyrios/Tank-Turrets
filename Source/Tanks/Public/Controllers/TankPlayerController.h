@@ -13,5 +13,17 @@ UCLASS()
 class TANKS_API ATankPlayerController : public ABasePlayerController
 {
 	GENERATED_BODY()
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UInputAction> ForwardMoving{ nullptr };
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UInputAction> SidewaysMoving{ nullptr };
 	
+	TObjectPtr<class ATank> PlayerChar{ nullptr };
+
+	virtual void BeginPlay() override;
+	virtual void SetupInputComponent() override;
+	void MoveForward(const struct FInputActionValue& Value);
+	void MoveSideway(const struct FInputActionValue& Value);
 };
