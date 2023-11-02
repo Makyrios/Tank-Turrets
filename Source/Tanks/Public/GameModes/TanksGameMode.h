@@ -3,41 +3,31 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameModeBase.h"
+#include "GameModes/BaseGameMode.h"
 #include "Controllers/PlayerControllerBase.h"
 #include "GameState/TanksGameState.h"
 #include "TanksGameMode.generated.h"
 
 UCLASS(minimalapi)
-class ATanksGameMode : public AGameModeBase
+class ATanksGameMode : public ABaseGameMode
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float StartGameDelay = 2;
-
 	ATanksGameMode();
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void StartGame();
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void StopGame(bool bPlayerWon);
-
-	void HandleTankKilled();
-	void HandleTurretKilled();
+	void HandleActorKilled(AActor* KilledActor) override;
 
 
 protected:
 	void BeginPlay() override;
 
+	void HandleGameStart() override;
+
 private:
 	TObjectPtr<APlayerControllerBase> TanksPlayerController;
 	TObjectPtr<ATanksGameState> TanksGameState;
 
-
-	void HandleGameStart();
 };
 
 

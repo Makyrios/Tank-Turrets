@@ -5,16 +5,10 @@
 #include <Kismet/GameplayStatics.h>
 #include "Actors/Turret.h"
 
-void ATanksGameState::HandleBeginPlay()
-{
-	Super::HandleBeginPlay();
 
-	FindAllTurrets();
-}
-
-void ATanksGameState::FindAllTurrets()
+int ATanksGameState::FindAllTurrets() const
 {
 	TArray<AActor*> Turrets;
-	UGameplayStatics::GetAllActorsOfClass(this, ATurret::StaticClass(), Turrets);
-	TurretAmount = Turrets.Num();
+	UGameplayStatics::GetAllActorsWithTag(this, FName("Turret"), Turrets);
+	return Turrets.Num();
 }

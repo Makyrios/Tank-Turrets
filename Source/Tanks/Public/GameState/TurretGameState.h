@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
-#include "TanksGameState.generated.h"
+#include "TurretGameState.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TANKS_API ATanksGameState : public AGameStateBase
+class TANKS_API ATurretGameState : public AGameStateBase
 {
 	GENERATED_BODY()
 
 public:
-	int FindAllTurrets() const;
+	int FindAllTanks() const;
 	
 };

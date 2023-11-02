@@ -9,27 +9,32 @@ ATanksGameMode::ATanksGameMode()
 {
 	// set default pawn class to our Blueprinted character
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter"));
-	if (PlayerPawnBPClass.Class != NULL)
+	if (PlayerPawnBPClass.Class != nullptr)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 }
 
-void ATanksGameMode::HandleTankKilled()
+void ATanksGameMode::HandleActorKilled(AActor* KilledActor)
 {
-	StopGame(false);
-}
+	Super::HandleActorKilled(KilledActor);
 
-void ATanksGameMode::HandleTurretKilled()
-{
-	if (TanksGameState != nullptr)
+	if (KilledActor->ActorHasTag("Tank"))
 	{
-		if (--TanksGameState->TurretAmount <= 0)
+		StopGame(false);
+	}
+	else if (KilledActor->ActorHasTag("Turret"))
+	{
+		if (TanksGameState != nullptr)
 		{
-			StopGame(true);
+			if (TanksGameState->FindAllTurrets() - 1 <= 0)
+			{
+				StopGame(true);
+			}
 		}
 	}
 }
+
 
 void ATanksGameMode::BeginPlay()
 {
@@ -43,7 +48,7 @@ void ATanksGameMode::BeginPlay()
 
 void ATanksGameMode::HandleGameStart()
 {
-	StartGame();
+	Super::HandleGameStart();
 
 	if (TanksPlayerController != nullptr)
 	{
