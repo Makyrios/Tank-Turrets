@@ -1,8 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-#include "Turret.h"
-
+#include "Actors/Turret.h"
 #include "CoreMinimal.h"
 #include "Spawners/BaseSpawner.h"
 #include "TurretSpawner.generated.h"
