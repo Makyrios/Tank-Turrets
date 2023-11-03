@@ -26,6 +26,10 @@ protected:
 	float FireRange{ 2000.f };
 
 	virtual void BeginPlay() override;
+
+	void InitializeHealthBar();
+
+	void InitializeController();
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshBase{nullptr};
@@ -45,8 +49,18 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<class USceneComponent> ProjectileSpawnPoint{nullptr};
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	TObjectPtr<class UHealthComponent> HealthComponent{nullptr};
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	TObjectPtr<class UWidgetComponent> HealthBarWidgetComponent{nullptr};
+
 	UPROPERTY(EditAnywhere, Category = "Components")
 	TSubclassOf<class AProjectile> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "HUD")
+	TSubclassOf<class UHealthBarWidget> HealthBarWidgetClass;
+
 
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float TowerRotationSpeed{10.f};
