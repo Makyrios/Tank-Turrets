@@ -5,6 +5,10 @@
 #include "Actors/Projectile.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "ActorComponents/HealthComponent.h"
+#include "Components/WidgetComponent.h"
+#include <Kismet/GameplayStatics.h>
+#include <Widgets/HealthBarWidget.h>
 
 // Sets default values
 APawnBase::APawnBase()
@@ -29,6 +33,16 @@ APawnBase::APawnBase()
 
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
 	ProjectileSpawnPoint->SetupAttachment(MeshMuzzle);
+
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
+
+	HealthBarWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("Health Bar Widget Component"));
+	HealthBarWidgetComponent->SetupAttachment(RootComponent);
+	HealthBarWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
+	HealthBarWidgetComponent->SetDrawSize(FVector2D(300, 20));
+
+	HealthBarWidgetClass = LoadClass<UHealthBarWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/WBP_HealthBarWidget.WBP_HealthBarWidget_C'"));
+	ProjectileClass = LoadClass<AProjectile>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actors/BP_Projectile.BP_Projectile_C'"));
 }
 
 
@@ -43,12 +57,35 @@ void APawnBase::RotateTower(FVector LookAtTarget)
 
 void APawnBase::BeginPlay()
 {
+	Super::BeginPlay();
+
+	InitializeController();
+
+	InitializeHealthBar();
+}
+
+void APawnBase::InitializeController()
+{
 	auto AIController = Cast<ABaseAIController>(GetController());
 	if (AIController != nullptr)
 	{
 		AIController->SetPlayer();
 		AIController->SetFireRate(FireRate);
 		AIController->SetFireRange(FireRange);
+	}
+}
+
+void APawnBase::InitializeHealthBar()
+{
+	UUserWidget* Widget = CreateWidget<UHealthBarWidget>(UGameplayStatics::GetPlayerController(this, 0), HealthBarWidgetClass);
+	HealthBarWidgetComponent->SetWidget(Widget);
+	if (UHealthBarWidget* Health = Cast<UHealthBarWidget>(HealthBarWidgetComponent->GetWidget()))
+	{
+		Health->InitializeWidget(HealthComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Health widget cast fail"));
 	}
 }
 

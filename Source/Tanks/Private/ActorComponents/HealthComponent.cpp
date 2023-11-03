@@ -24,6 +24,8 @@ void UHealthComponent::DamageTaken(AActor* DamageActor, float Damage, const UDam
 	Health -= Damage;
 	UE_LOG(LogTemp, Warning, TEXT("%f"), Health);
 
+	OnHealthUpdate.Broadcast(Health);
+
 	if (Health <= 0.f)
 	{
 		HandleDestroy(DamageActor);
@@ -43,7 +45,8 @@ void UHealthComponent::HandleDestroy(AActor* DamageActor)
 void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
+	UE_LOG(LogTemp, Display, TEXT("Health comp: %s"), *GetOwner()->GetActorNameOrLabel())
 	Health = MaxHealth;
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DamageTaken);
 	
