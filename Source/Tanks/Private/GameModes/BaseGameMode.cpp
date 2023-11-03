@@ -15,6 +15,13 @@ void ABaseGameMode::HandleActorKilled(AActor* KilledActor)
 
 }
 
+void ABaseGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+
+	HandleGameStart();
+}
+
 void ABaseGameMode::HandleGameStart()
 {
 	StartGame();
