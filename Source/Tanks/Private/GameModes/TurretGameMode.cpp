@@ -31,11 +31,12 @@ void ATurretGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	HandleGameStart();
 }
 
 void ATurretGameMode::HandleGameStart()
 {
+	Super::HandleGameStart();
+
 	if (TurretPlayerController != nullptr)
 	{
 		TurretPlayerController->SetPlayerEnabledState(false);

@@ -52,7 +52,6 @@ void ATanksGameMode::HandleGameStart()
 
 	if (TanksPlayerController != nullptr)
 	{
-		UE_LOG(LogTemp, Display, TEXT("CHECK"));
 		TanksPlayerController->SetPlayerEnabledState(false);
 
 		FTimerHandle PlayerEnableTimerHandle;

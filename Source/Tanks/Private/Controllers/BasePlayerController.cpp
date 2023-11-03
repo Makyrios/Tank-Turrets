@@ -17,6 +17,10 @@ void ABasePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	FInputModeGameAndUI InputMode;
+	InputMode.SetHideCursorDuringCapture(false);
+	SetInputMode(InputMode);
+
 	PlayerChar = Cast<APawnBase>(GetPawn());
 }
 
