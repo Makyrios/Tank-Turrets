@@ -23,6 +23,7 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &ThisClass::OnHit);
 }
 
