@@ -70,6 +70,16 @@ void APawnBase::InitializeController()
 	}
 }
 
+bool APawnBase::MuzzleRotationInRange(const float& LookAtTarget)
+{	
+	if ((MeshMuzzle->GetRelativeRotation().Pitch > RotateDegreeMin && LookAtTarget < 0) ||
+		(MeshMuzzle->GetRelativeRotation().Pitch < RotateDegreeMax && LookAtTarget > 0))
+	{
+		return true;
+	}
+	return false;
+}
+
 void APawnBase::InitializeHealthBar()
 {
 	UUserWidget* Widget = CreateWidget<UHealthBarWidget>(UGameplayStatics::GetPlayerController(this, 0), HealthBarWidgetClass);
@@ -94,7 +104,11 @@ void APawnBase::RotateTower(float LookAtTarget)
 void APawnBase::RotateMuzzle(float LookAtTarget)
 {
 	FRotator MuzzleRotation {LookAtTarget, 0.f, 0.f};
-	MeshMuzzle->AddLocalRotation(MuzzleRotation, true);
+	if (MuzzleRotationInRange(LookAtTarget))
+	{
+		MeshMuzzle->AddLocalRotation(MuzzleRotation, true);
+	}
+	
 }
 
 void APawnBase::RotateTowerAI(FVector LookAtTarget)

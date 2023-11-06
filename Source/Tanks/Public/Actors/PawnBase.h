@@ -35,6 +35,8 @@ protected:
 	void InitializeHealthBar();
 
 	void InitializeController();
+
+	bool MuzzleRotationInRange(const float& LookAtTarget);
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshBase{nullptr};
