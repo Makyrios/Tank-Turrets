@@ -9,19 +9,25 @@
 
 ABasePlayerController::ABasePlayerController()
 {
-	bShowMouseCursor = true;
-	DefaultMouseCursor = EMouseCursor::Crosshairs;
+	//bShowMouseCursor = true;
+	//DefaultMouseCursor = EMouseCursor::Crosshairs;
 }
 
 void ABasePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	FInputModeGameAndUI InputMode;
-	InputMode.SetHideCursorDuringCapture(false);
-	SetInputMode(InputMode);
-
+	
 	PlayerChar = Cast<APawnBase>(GetPawn());
+
+	
+	
+	
+	
+	//FInputModeGameAndUI InputMode;
+	//InputMode.SetHideCursorDuringCapture(false);
+	//SetInputMode(InputMode);
+
+	
 }
 
 void ABasePlayerController::SetupInputComponent()
@@ -40,6 +46,8 @@ void ABasePlayerController::SetupInputComponent()
 	{
 		// Bind the actions
 		UEI->BindAction(ShootAction.Get(), ETriggerEvent::Started, this, &ABasePlayerController::Shoot);
+		UEI->BindAction(RotateTowerAction.Get(), ETriggerEvent::Triggered, this, &ABasePlayerController::RotateTower);
+		UEI->BindAction(RotateMuzzleAction.Get(), ETriggerEvent::Triggered, this, &ABasePlayerController::RotateMuzzle);
 	}
 }
 
@@ -75,15 +83,25 @@ void ABasePlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	RotateTowerToCursor();
+	
 }
 
-void ABasePlayerController::RotateTowerToCursor()
+void ABasePlayerController::RotateMuzzle(const FInputActionValue& Value)
 {
-	FHitResult Result;
-	GetHitResultUnderCursor(ECC_Visibility, false, Result);
+	float AxisValue = Value.Get<float>();
 	if (PlayerChar)
 	{
-		PlayerChar->RotateTower(Result.Location);
+		PlayerChar->AddControllerPitchInput(AxisValue);
+		PlayerChar->RotateMuzzle(AxisValue);
+	}
+}
+
+void ABasePlayerController::RotateTower(const struct FInputActionValue& Value)
+{
+	float AxisValue = Value.Get<float>();
+	if (PlayerChar)
+	{
+		PlayerChar->AddControllerYawInput(AxisValue);
+		PlayerChar->RotateTower(AxisValue);
 	}
 }

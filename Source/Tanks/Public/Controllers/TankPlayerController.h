@@ -27,4 +27,5 @@ protected:
 	virtual void SetupInputComponent() override;
 	void MoveForward(const struct FInputActionValue& Value);
 	void MoveSideway(const struct FInputActionValue& Value);
+	
 };

@@ -17,9 +17,16 @@ public:
 	APawnBase();
 	
 	virtual void Fire();
-	void RotateTower(FVector LookAtTarget);
+	void RotateTower(float LookAtTarget);
+	void RotateMuzzle(float LookAtTarget);
+
+	
+	
+	float GetRotateDegreeMax() { return RotateDegreeMax; }
+	float GetRotateDegreeMin() { return RotateDegreeMin; }
 	
 	float GetFireRate() const { return FireRate; }
+
 	
 protected:
 
@@ -69,4 +76,8 @@ protected:
 	float FireRate{2.f};
 	FTimerHandle FireRateTimer;
 	
+	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	float RotateDegreeMin{-12.0f};
+	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	float RotateDegreeMax{15.0f};
 };

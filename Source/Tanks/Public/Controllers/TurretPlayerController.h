@@ -19,10 +19,7 @@ public:
 	float RotationSpeed = 0.5f;
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<class UInputAction> RotateCameraAction{ nullptr };
-
+	
 	virtual void SetupInputComponent() override;
-
-	void RotateCamera(const struct FInputActionValue& Value);
+	
 };
