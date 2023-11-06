@@ -11,7 +11,7 @@ void ABaseAIController::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 	if (PlayerPawn != nullptr && PPawn != nullptr)
 	{
-		//PPawn->RotateTower(PlayerPawn->GetActorLocation());
+		PPawn->RotateTowerAI(PlayerPawn->GetActorLocation());
 	}
 	if (InFireRange())
 	{	
