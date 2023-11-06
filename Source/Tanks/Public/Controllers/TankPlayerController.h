@@ -13,6 +13,7 @@ UCLASS()
 class TANKS_API ATankPlayerController : public ABasePlayerController
 {
 	GENERATED_BODY()
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UInputAction> ForwardMoving{ nullptr };
