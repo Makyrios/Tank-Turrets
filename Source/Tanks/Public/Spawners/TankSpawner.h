@@ -24,7 +24,7 @@ private:
 	TObjectPtr<ATank> SpawnedActor;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Spawned Object Settings")
-	TSubclassOf <ATank> ActorToCreate;
+	TSubclassOf<ATank> ActorToCreate;
 
 	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
 	float MovingSpeed{ 20.f };

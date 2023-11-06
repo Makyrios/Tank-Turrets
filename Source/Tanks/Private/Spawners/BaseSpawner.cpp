@@ -11,8 +11,6 @@ ABaseSpawner::ABaseSpawner()
 
 }
 
-// Called when the game starts or when spawned
-
 
 // Called every frame
 void ABaseSpawner::Tick(float DeltaTime)

@@ -6,15 +6,28 @@
 #include "Actors/PawnBase.h"
 #include "Kismet/GameplayStatics.h"
 
+void ABaseAIController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	PPawn = Cast<APawnBase>(InPawn);
+	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));
+	CurrentPosition = PPawn->GetActorLocation();
+}
+
 void ABaseAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	if (PlayerPawn != nullptr && PPawn != nullptr)
-	{
-		PPawn->RotateTower(PlayerPawn->GetActorLocation());
-	}
+
+	RotateToPlayer();
+
+	ShootInFireRange();
+}
+
+void ABaseAIController::ShootInFireRange()
+{
 	if (InFireRange())
-	{	
+	{
 		float CurrentTime = GetWorld()->GetTimeSeconds();
 		if (CurrentTime - LastShootTime >= FireRate) // Check if Xsec (FireRate) is passed from the last shoot
 		{
@@ -24,12 +37,21 @@ void ABaseAIController::Tick(float DeltaSeconds)
 	}
 }
 
+void ABaseAIController::RotateToPlayer()
+{
+	if (PlayerPawn != nullptr && PPawn != nullptr)
+	{
+		PPawn->RotateTower(PlayerPawn->GetActorLocation());
+	}
+}
+
 bool ABaseAIController::InFireRange()
 {
 	if (PlayerPawn != nullptr && PPawn != nullptr)
 	{
-		float Dist = FVector::Dist(CurPosition, PlayerPawn->GetActorLocation());
-		if (Dist <= FireRange)
+		float Dist = FVector::Dist(CurrentPosition, PlayerPawn->GetActorLocation());
+		float Range = GetFireRange();
+		if (Dist <= Range)
 		{
 			return true;
 		}
@@ -39,7 +61,7 @@ bool ABaseAIController::InFireRange()
 
 void ABaseAIController::SetPlayer()
 {
-	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));	
+	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));
 }
 
 void ABaseAIController::SetFireRate(float newFireRate)
@@ -52,10 +74,9 @@ void ABaseAIController::SetFireRange(float newFireRange)
 	FireRange = newFireRange;
 }
 
-void ABaseAIController::OnPossess(APawn* InPawn)
-{	
-	Super::OnPossess(InPawn);
-	PPawn = Cast<APawnBase>(InPawn);
-	CurPosition = PPawn->GetActorLocation();
+float ABaseAIController::GetFireRange() const
+{
+	return PPawn->GetFireRange();
 }
+
 

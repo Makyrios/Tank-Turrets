@@ -18,12 +18,7 @@ class TANKS_API ATurret : public APawnBase
 public:
 	ATurret();
 	
-	void SetFireRange(float NewRange);
 protected:
-	
 	virtual void BeginPlay() override;
-private:
-	
-	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
-	float FireRange{ 2000.f };
+
 };

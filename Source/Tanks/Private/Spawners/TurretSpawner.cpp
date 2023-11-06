@@ -24,5 +24,6 @@ void ATurretSpawner::SetObjectData()
 void ATurretSpawner::BeginPlay()
 {
 	Super::BeginPlay();
+
 	SpawnObject();
 }

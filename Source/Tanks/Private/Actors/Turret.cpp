@@ -18,9 +18,3 @@ void ATurret::BeginPlay()
 }
 
 
-void ATurret::SetFireRange(float NewRange)
-{
-	FireRange = NewRange;
-}
-
-

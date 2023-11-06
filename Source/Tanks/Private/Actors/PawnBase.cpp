@@ -70,8 +70,8 @@ void APawnBase::InitializeController()
 	if (AIController != nullptr)
 	{
 		AIController->SetPlayer();
-		AIController->SetFireRate(FireRate);
 		AIController->SetFireRange(FireRange);
+		AIController->SetFireRate(FireRate);
 	}
 }
 
