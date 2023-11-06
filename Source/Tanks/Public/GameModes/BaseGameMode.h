@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "GameplayTagContainer.h"
+#include <Controllers/BasePlayerController.h>
 #include "BaseGameMode.generated.h"
 
 /**
@@ -32,6 +33,9 @@ protected:
 	void BeginPlay() override;
 
 	virtual void HandleGameStart();
+
+protected:
+	TObjectPtr<ABasePlayerController> PlayerController;
 	
 };
 

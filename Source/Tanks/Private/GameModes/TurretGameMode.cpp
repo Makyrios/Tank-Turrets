@@ -31,28 +31,12 @@ void ATurretGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+	TurretGameState = Cast<ATurretGameState>(GameState);
+
 }
 
 void ATurretGameMode::HandleGameStart()
 {
 	Super::HandleGameStart();
 
-	if (TurretPlayerController != nullptr)
-	{
-		TurretPlayerController->SetPlayerEnabledState(false);
-
-		FTimerHandle PlayerEnableTimerHandle;
-		FTimerDelegate TimerDelegate = FTimerDelegate::CreateUObject(
-			TurretPlayerController,
-			&ABasePlayerController::SetPlayerEnabledState,
-			true
-		);
-		GetWorldTimerManager().SetTimer(
-			PlayerEnableTimerHandle,
-			TimerDelegate,
-			StartGameDelay,
-			false
-		);
-
-	}
 }

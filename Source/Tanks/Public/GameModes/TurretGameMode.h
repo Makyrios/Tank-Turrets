@@ -27,8 +27,6 @@ protected:
 	void HandleGameStart();
 
 private:
-	// Change to turret player controller
-	TObjectPtr<ABasePlayerController> TurretPlayerController;
 	TObjectPtr<ATurretGameState> TurretGameState;
 	
 };

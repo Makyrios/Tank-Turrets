@@ -25,7 +25,6 @@ protected:
 	void HandleGameStart() override;
 
 private:
-	TObjectPtr<ABasePlayerController> TanksPlayerController;
 	TObjectPtr<ATanksGameState> TanksGameState;
 
 };
