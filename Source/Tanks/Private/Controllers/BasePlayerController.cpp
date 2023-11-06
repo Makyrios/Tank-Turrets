@@ -5,6 +5,8 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include <GameModes/BaseGameMode.h>
+#include <Kismet/GameplayStatics.h>
 
 
 ABasePlayerController::ABasePlayerController()
@@ -18,11 +20,11 @@ void ABasePlayerController::BeginPlay()
 	Super::BeginPlay();
 	
 	PlayerChar = Cast<APawnBase>(GetPawn());
-	
-	//FInputModeGameAndUI InputMode;
-	//InputMode.SetHideCursorDuringCapture(false);
-	//SetInputMode(InputMode);
-	
+
+	SetControlEnabledState(false);
+
+	ABaseGameMode* GameMode = Cast<ABaseGameMode>(UGameplayStatics::GetGameMode(this));
+	GameMode->OnGameStart.AddUObject(this, &ABasePlayerController::OnGameStart);
 }
 
 void ABasePlayerController::SetupInputComponent()
@@ -58,7 +60,7 @@ void ABasePlayerController::Shoot(const FInputActionValue& Value)
 	}
 }
 
-void ABasePlayerController::SetPlayerEnabledState(bool bEnableInput)
+void ABasePlayerController::SetControlEnabledState(bool bEnableInput)
 {
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
@@ -71,6 +73,11 @@ void ABasePlayerController::SetPlayerEnabledState(bool bEnableInput)
 			Subsystem->ClearAllMappings();
 		}
 	}
+}
+
+void ABasePlayerController::OnGameStart()
+{
+	SetControlEnabledState(true);
 }
 
 

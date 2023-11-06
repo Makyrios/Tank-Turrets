@@ -61,13 +61,13 @@ void APawnBase::BeginPlay()
 
 void APawnBase::InitializeController()
 {
-	auto AIController = Cast<ABaseAIController>(GetController());
+	/*auto AIController = Cast<ABaseAIController>(GetController());
 	if (AIController != nullptr)
 	{
 		AIController->SetPlayer();
-		AIController->SetFireRate(FireRate);
 		AIController->SetFireRange(FireRange);
-	}
+		AIController->SetFireRate(FireRate);
+	}*/
 }
 
 bool APawnBase::MuzzleRotationInRange(const float& LookAtTarget)

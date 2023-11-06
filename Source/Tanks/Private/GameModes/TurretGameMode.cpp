@@ -11,11 +11,11 @@ void ATurretGameMode::HandleActorKilled(AActor* KilledActor)
 {
 	Super::HandleActorKilled(KilledActor);
 
-	if (KilledActor->ActorHasTag("Tank"))
+	if (KilledActor->ActorHasTag("Turret"))
 	{
 		StopGame(false);
 	}
-	else if (KilledActor->ActorHasTag("Turret"))
+	else if (KilledActor->ActorHasTag("Tank"))
 	{
 		if (TurretGameState != nullptr)
 		{

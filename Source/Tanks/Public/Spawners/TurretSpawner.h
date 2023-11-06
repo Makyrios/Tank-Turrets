@@ -25,9 +25,7 @@ private:
 	TObjectPtr<ATurret> SpawnedActor;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Spawned Object Settings")
-	TSubclassOf <ATurret> ActorToCreate;
+	TSubclassOf<ATurret> ActorToCreate;
 
-	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
-	float FireRange{ 2000.f };
 
 };

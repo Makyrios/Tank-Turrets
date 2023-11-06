@@ -19,6 +19,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SpawnObject() PURE_VIRTUAL(ThisClass::SpawnObject);
 	virtual void SetObjectData() PURE_VIRTUAL(ThisClass::SetObjectData);
-	
 
+	
+protected:
+	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
+	float FireRange{ 2000.f };
+	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
+	float FireRate{ 2.f };
 };

@@ -19,11 +19,14 @@ void ATankSpawner::SetObjectData()
 {
 	SpawnedActor->SetRotationSpeed(RotationSpeed);
 	SpawnedActor->SetMovingSpeed(MovingSpeed);
+	SpawnedActor->SetFireRange(FireRange);
+	SpawnedActor->SetFireRate(FireRate);
 	SpawnedActor->SpawnDefaultController();
 }
 
 void ATankSpawner::BeginPlay()
 {
 	Super::BeginPlay();
+
 	SpawnObject();
 }

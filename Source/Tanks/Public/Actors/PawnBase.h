@@ -25,11 +25,15 @@ public:
 	float GetRotateDegreeMax() { return RotateDegreeMax; }
 	float GetRotateDegreeMin() { return RotateDegreeMin; }
 	
-	float GetFireRate() const { return FireRate; }
+	inline float GetFireRate() const { return FireRate; }
 
+	inline float GetFireRange() const { return FireRange; }
+
+	inline void SetFireRange(float NewFireRange) { FireRange = NewFireRange; }
+
+	inline void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
 	
 protected:
-	
 	virtual void BeginPlay() override;
 
 	void InitializeHealthBar();
@@ -68,12 +72,15 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "HUD")
 	TSubclassOf<class UHealthBarWidget> HealthBarWidgetClass;
 
+	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	float FireRange{ 500.f };
 
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float TowerRotationSpeed{10.f};
 	
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float FireRate{2.f};
+
 	FTimerHandle FireRateTimer;
 
 	float FireRange{ 2000.f };

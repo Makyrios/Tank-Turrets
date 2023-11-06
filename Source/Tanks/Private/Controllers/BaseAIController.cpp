@@ -5,16 +5,38 @@
 
 #include "Actors/PawnBase.h"
 #include "Kismet/GameplayStatics.h"
+#include <GameModes/BaseGameMode.h>
+
+void ABaseAIController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+
+	PPawn = Cast<APawnBase>(InPawn);
+	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));
+	CurrentPosition = PPawn->GetActorLocation();
+
+	SetControlEnabledState(false);
+
+	ABaseGameMode* GameMode = Cast<ABaseGameMode>(UGameplayStatics::GetGameMode(this));
+	GameMode->OnGameStart.AddUObject(this, &ABaseAIController::OnGameStart);
+}
 
 void ABaseAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	if (PlayerPawn != nullptr && PPawn != nullptr)
+
+	if (bEnableControl)
 	{
-		PPawn->RotateTowerAI(PlayerPawn->GetActorLocation());
+		ExecuteTasks(DeltaSeconds);
 	}
+
+}
+
+void ABaseAIController::ShootInFireRange()
+{
 	if (InFireRange())
-	{	
+	{
 		float CurrentTime = GetWorld()->GetTimeSeconds();
 		if (CurrentTime - LastShootTime >= FireRate) // Check if Xsec (FireRate) is passed from the last shoot
 		{
@@ -24,12 +46,32 @@ void ABaseAIController::Tick(float DeltaSeconds)
 	}
 }
 
+void ABaseAIController::ExecuteTasks(float DeltaTime)
+{
+	RotateTurretToPlayer();
+	ShootInFireRange();
+}
+
+void ABaseAIController::RotateTurretToPlayer()
+{
+	if (PlayerPawn != nullptr && PPawn != nullptr)
+	{
+		PPawn->RotateTower(PlayerPawn->GetActorLocation());
+	}
+}
+
+void ABaseAIController::OnGameStart()
+{
+	SetControlEnabledState(true);
+}
+
 bool ABaseAIController::InFireRange()
 {
 	if (PlayerPawn != nullptr && PPawn != nullptr)
 	{
-		float Dist = FVector::Dist(CurPosition, PlayerPawn->GetActorLocation());
-		if (Dist <= FireRange)
+		float Dist = FVector::Dist(CurrentPosition, PlayerPawn->GetActorLocation());
+		float Range = GetFireRange();
+		if (Dist <= Range)
 		{
 			return true;
 		}
@@ -39,23 +81,32 @@ bool ABaseAIController::InFireRange()
 
 void ABaseAIController::SetPlayer()
 {
-	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));	
+	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));
 }
 
-void ABaseAIController::SetFireRate(float newFireRate)
+//void ABaseAIController::SetFireRate(float newFireRate)
+//{
+//	FireRate = newFireRate;
+//}
+//
+//void ABaseAIController::SetFireRange(float newFireRange)
+//{
+//	FireRange = newFireRange;
+//}
+
+float ABaseAIController::GetFireRange() const
 {
-	FireRate = newFireRate;
+	return PPawn->GetFireRange();
 }
 
-void ABaseAIController::SetFireRange(float newFireRange)
+float ABaseAIController::GetFireRate() const
 {
-	FireRange = newFireRange;
+	return PPawn->GetFireRate();
 }
 
-void ABaseAIController::OnPossess(APawn* InPawn)
-{	
-	Super::OnPossess(InPawn);
-	PPawn = Cast<APawnBase>(InPawn);
-	CurPosition = PPawn->GetActorLocation();
+void ABaseAIController::SetControlEnabledState(bool bEnableInput)
+{
+	bEnableControl = bEnableInput;
 }
+
 
