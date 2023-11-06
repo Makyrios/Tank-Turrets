@@ -97,6 +97,16 @@ void APawnBase::RotateMuzzle(float LookAtTarget)
 	MeshMuzzle->AddLocalRotation(MuzzleRotation, true);
 }
 
+void APawnBase::RotateTowerAI(FVector LookAtTarget)
+{
+	FVector TagetLocation = LookAtTarget - MeshTower->GetComponentLocation();
+
+	FRotator MeshRotation{0.f, TagetLocation.Rotation().Yaw, 0.f};
+	
+	MeshTower->SetWorldRotation(FMath::RInterpTo(MeshTower->GetComponentRotation(), MeshRotation,
+		GetWorld()->GetDeltaSeconds(), TowerRotationSpeed));
+}
+
 void APawnBase::Fire()
 {
 	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentTransform());

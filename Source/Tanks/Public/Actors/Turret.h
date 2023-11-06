@@ -19,6 +19,7 @@ public:
 	ATurret();
 	
 	void SetFireRange(float NewRange);
+	
 protected:
 	
 	virtual void BeginPlay() override;

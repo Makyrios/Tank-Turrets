@@ -18,15 +18,10 @@ void ABasePlayerController::BeginPlay()
 	Super::BeginPlay();
 	
 	PlayerChar = Cast<APawnBase>(GetPawn());
-
-	
-	
-	
 	
 	//FInputModeGameAndUI InputMode;
 	//InputMode.SetHideCursorDuringCapture(false);
 	//SetInputMode(InputMode);
-
 	
 }
 
@@ -82,8 +77,6 @@ void ABasePlayerController::SetPlayerEnabledState(bool bEnableInput)
 void ABasePlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
-	
 }
 
 void ABasePlayerController::RotateMuzzle(const FInputActionValue& Value)
