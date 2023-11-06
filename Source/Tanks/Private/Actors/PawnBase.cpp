@@ -93,6 +93,7 @@ void APawnBase::InitializeHealthBar()
 void APawnBase::Fire()
 {
 	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentTransform());
+	Projectile->SetOwner(this);
 }
 
 
