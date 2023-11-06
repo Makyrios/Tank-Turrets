@@ -35,10 +35,15 @@ protected:
 	TObjectPtr<class APawnBase>	PPawn{ nullptr };
 	FVector CurrentPosition{ 0.0f };
 
-	virtual void Tick(float DeltaSeconds) override;
+	virtual void ExecuteTasks();
+
+	virtual void Tick(float DeltaSeconds) override final;
 	void ShootInFireRange();
-	void RotateToPlayer();
+	void RotateTurretToPlayer();
 	virtual bool InFireRange();
 	virtual void OnPossess(APawn* InPawn) override;
+
+private:
+	void OnGameStart();
 
 };

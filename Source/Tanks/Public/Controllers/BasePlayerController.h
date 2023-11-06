@@ -38,4 +38,7 @@ protected:
 	
 public:
 	void SetControlEnabledState(bool bEnableInput);
+
+private:
+	void OnGameStart();
 };

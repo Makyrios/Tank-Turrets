@@ -5,6 +5,7 @@
 
 #include "Actors/PawnBase.h"
 #include "Kismet/GameplayStatics.h"
+#include <GameModes/BaseGameMode.h>
 
 void ABaseAIController::OnPossess(APawn* InPawn)
 {
@@ -14,6 +15,11 @@ void ABaseAIController::OnPossess(APawn* InPawn)
 	PPawn = Cast<APawnBase>(InPawn);
 	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));
 	CurrentPosition = PPawn->GetActorLocation();
+
+	SetControlEnabledState(false);
+
+	ABaseGameMode* GameMode = Cast<ABaseGameMode>(UGameplayStatics::GetGameMode(this));
+	GameMode->OnGameStart.AddUObject(this, &ABaseAIController::OnGameStart);
 }
 
 void ABaseAIController::Tick(float DeltaSeconds)
@@ -22,8 +28,7 @@ void ABaseAIController::Tick(float DeltaSeconds)
 
 	if (bEnableControl)
 	{
-		RotateToPlayer();
-		ShootInFireRange();
+		ExecuteTasks();
 	}
 
 }
@@ -41,12 +46,23 @@ void ABaseAIController::ShootInFireRange()
 	}
 }
 
-void ABaseAIController::RotateToPlayer()
+void ABaseAIController::ExecuteTasks()
+{
+	RotateTurretToPlayer();
+	ShootInFireRange();
+}
+
+void ABaseAIController::RotateTurretToPlayer()
 {
 	if (PlayerPawn != nullptr && PPawn != nullptr)
 	{
 		PPawn->RotateTower(PlayerPawn->GetActorLocation());
 	}
+}
+
+void ABaseAIController::OnGameStart()
+{
+	SetControlEnabledState(true);
 }
 
 bool ABaseAIController::InFireRange()

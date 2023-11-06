@@ -8,6 +8,8 @@
 #include <Controllers/BasePlayerController.h>
 #include "BaseGameMode.generated.h"
 
+DECLARE_MULTICAST_DELEGATE(FOnGameStart);
+
 /**
  * 
  */
@@ -17,6 +19,8 @@ class TANKS_API ABaseGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	FOnGameStart OnGameStart;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float StartGameDelay = 2;
 
