@@ -17,7 +17,9 @@ class TANKS_API ABasePlayerController : public APlayerController
 
 public:
 	ABasePlayerController();
-
+	
+	void RotateMuzzle(const struct FInputActionValue& Value);
+	void RotateTower(const struct FInputActionValue& Value);
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	TObjectPtr<class UInputMappingContext> DefaultMappingContext{nullptr};	
@@ -25,12 +27,18 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UInputAction> ShootAction{nullptr};
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UInputAction> RotateTowerAction{nullptr};
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UInputAction> RotateMuzzleAction{nullptr};
+	
 	TObjectPtr<class APawnBase> PlayerChar{nullptr};
 
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 	virtual void Tick(float DeltaSeconds) override;
-	void RotateTowerToCursor();
+	
 	
 	void Shoot(const struct FInputActionValue& Value);
 	

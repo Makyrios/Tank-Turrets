@@ -33,8 +33,7 @@ protected:
 	void BeginPlay() override;
 
 	virtual void HandleGameStart();
-
-protected:
+	
 	TObjectPtr<ABasePlayerController> PlayerController;
 	
 };

@@ -21,12 +21,12 @@ APawnBase::APawnBase()
 	
 	MeshTower = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Tower"));
 	MeshTower->SetupAttachment(MeshBase);
-
+	
 	MeshMuzzle = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Muzzle"));
 	MeshMuzzle->SetupAttachment(MeshTower);
 	
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm Component"));
-	SpringArmComponent->SetupAttachment(RootComponent);
+	SpringArmComponent->SetupAttachment(MeshMuzzle);
 	
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera Component"));
 	CameraComponent->SetupAttachment(SpringArmComponent);
@@ -46,19 +46,14 @@ APawnBase::APawnBase()
 }
 
 
-void APawnBase::RotateTower(FVector LookAtTarget)
-{
-	FVector TargetLocation = LookAtTarget - MeshTower->GetComponentLocation();
-	FRotator MeshRotation{0.f, TargetLocation.Rotation().Yaw, 0.f};
 
-	MeshTower->SetWorldRotation(FMath::RInterpTo(MeshTower->GetComponentRotation(), MeshRotation,
-		GetWorld()->GetDeltaSeconds(), TowerRotationSpeed));
-}
 
 void APawnBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	
+	
 	InitializeController();
 
 	InitializeHealthBar();
@@ -90,13 +85,23 @@ void APawnBase::InitializeHealthBar()
 }
 
 
+void APawnBase::RotateTower(float LookAtTarget)
+{
+	FRotator TowerRotation {0.f, LookAtTarget, 0.f};
+	MeshTower->AddLocalRotation(TowerRotation);
+}
+
+void APawnBase::RotateMuzzle(float LookAtTarget)
+{
+	FRotator MuzzleRotation {LookAtTarget, 0.f, 0.f};
+	MeshMuzzle->AddLocalRotation(MuzzleRotation, true);
+}
+
 void APawnBase::Fire()
 {
 	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentTransform());
 	Projectile->SetOwner(this);
 }
-
-
 
 
 

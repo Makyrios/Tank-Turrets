@@ -12,6 +12,8 @@ void ATankPlayerController::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerChar = Cast<ATank>(GetPawn());
+
+
 }
 
 void ATankPlayerController::SetupInputComponent()
