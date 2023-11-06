@@ -28,7 +28,7 @@ void ABaseAIController::Tick(float DeltaSeconds)
 
 	if (bEnableControl)
 	{
-		ExecuteTasks();
+		ExecuteTasks(DeltaSeconds);
 	}
 
 }
@@ -46,7 +46,7 @@ void ABaseAIController::ShootInFireRange()
 	}
 }
 
-void ABaseAIController::ExecuteTasks()
+void ABaseAIController::ExecuteTasks(float DeltaTime)
 {
 	RotateTurretToPlayer();
 	ShootInFireRange();

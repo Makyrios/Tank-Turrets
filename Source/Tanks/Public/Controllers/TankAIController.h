@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Controllers/BaseAIController.h"
+#include <Actors/Tank.h>
 #include "TankAIController.generated.h"
 
 /**
@@ -15,6 +16,19 @@ class TANKS_API ATankAIController : public ABaseAIController
 	GENERATED_BODY()
 	
 protected:
-	virtual void Tick(float DeltaSeconds) override;
 	virtual void OnPossess(APawn* InPawn) override;
+
+	virtual void ExecuteTasks(float DeltaTime) override;
+
+private:
+	TObjectPtr<ATank> TankPawn;
+
+	FVector MoveLocation;
+
+	void SetRandomMoveLocation(float DeltaTime);
+
+	void FindMoveToLocation(const FVector& Point, float Radius);
+
+	void MoveToLocation(const FVector& Location, float DeltaTime);
+
 };

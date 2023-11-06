@@ -35,7 +35,7 @@ protected:
 	TObjectPtr<class APawnBase>	PPawn{ nullptr };
 	FVector CurrentPosition{ 0.0f };
 
-	virtual void ExecuteTasks();
+	virtual void ExecuteTasks(float DeltaTime);
 
 	virtual void Tick(float DeltaSeconds) override final;
 	void ShootInFireRange();

@@ -30,13 +30,6 @@ void ABaseGameMode::HandleGameStart()
 {
 	StartGame();
 
-	/*FTimerHandle PlayerEnableTimerHandle;
-	FTimerDelegate TimerDelegate = FTimerDelegate::CreateUObject(
-		PlayerController,
-		&ABasePlayerController::SetControlEnabledState,
-		true
-	);*/
-	//GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, TimerDelegate, StartGameDelay,	false);
 	FTimerHandle StartGameTimerHandle;
 	GetWorldTimerManager().SetTimer(StartGameTimerHandle, [&]() { OnGameStart.Broadcast(); }, StartGameDelay, false);
 
