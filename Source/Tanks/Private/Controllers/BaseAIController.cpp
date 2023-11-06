@@ -56,7 +56,7 @@ void ABaseAIController::RotateTurretToPlayer()
 {
 	if (PlayerPawn != nullptr && PPawn != nullptr)
 	{
-		PPawn->RotateTower(PlayerPawn->GetActorLocation());
+		PPawn->RotateTowerAI(PlayerPawn->GetActorLocation());
 	}
 }
 

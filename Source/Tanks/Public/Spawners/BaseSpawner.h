@@ -26,4 +26,6 @@ protected:
 	float FireRange{ 2000.f };
 	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
 	float FireRate{ 2.f };
+	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
+	float TowerRotationSpeed{ 10.f };
 };

@@ -19,6 +19,7 @@ void ATurretSpawner::SetObjectData()
 {
 	SpawnedActor->SetFireRange(FireRange);
 	SpawnedActor->SetFireRate(FireRate);
+	SpawnedActor->SetTowerRotationSpeed(TowerRotationSpeed);
 	SpawnedActor->SpawnDefaultController();
 }
 

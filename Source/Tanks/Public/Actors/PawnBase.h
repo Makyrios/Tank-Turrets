@@ -26,12 +26,12 @@ public:
 	float GetRotateDegreeMin() { return RotateDegreeMin; }
 	
 	inline float GetFireRate() const { return FireRate; }
-
 	inline float GetFireRange() const { return FireRange; }
+	inline float GetTowerRotationSpeed() const { return TowerRotationSpeed; }
 
 	inline void SetFireRange(float NewFireRange) { FireRange = NewFireRange; }
-
 	inline void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
+	inline void SetTowerRotationSpeed(float NewRotationSpeed) { TowerRotationSpeed = NewRotationSpeed; }
 	
 protected:
 	virtual void BeginPlay() override;
@@ -82,8 +82,6 @@ protected:
 	float FireRate{2.f};
 
 	FTimerHandle FireRateTimer;
-
-	float FireRange{ 2000.f };
 	
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float RotateDegreeMin{-12.0f};
