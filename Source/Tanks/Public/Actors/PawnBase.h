@@ -24,6 +24,8 @@ public:
 	inline float GetFireRange() const { return FireRange; }
 
 	inline void SetFireRange(float NewFireRange) { FireRange = NewFireRange; }
+
+	inline void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
 	
 protected:
 	virtual void BeginPlay() override;

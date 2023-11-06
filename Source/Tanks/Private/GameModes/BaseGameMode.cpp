@@ -32,12 +32,12 @@ void ABaseGameMode::HandleGameStart()
 
 	if (PlayerController != nullptr)
 	{
-		PlayerController->SetPlayerEnabledState(false);
+		PlayerController->SetControlEnabledState(false);
 
 		FTimerHandle PlayerEnableTimerHandle;
 		FTimerDelegate TimerDelegate = FTimerDelegate::CreateUObject(
 			PlayerController,
-			&ABasePlayerController::SetPlayerEnabledState,
+			&ABasePlayerController::SetControlEnabledState,
 			true
 		);
 		GetWorldTimerManager().SetTimer(

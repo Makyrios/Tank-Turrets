@@ -66,13 +66,13 @@ void APawnBase::BeginPlay()
 
 void APawnBase::InitializeController()
 {
-	auto AIController = Cast<ABaseAIController>(GetController());
+	/*auto AIController = Cast<ABaseAIController>(GetController());
 	if (AIController != nullptr)
 	{
 		AIController->SetPlayer();
 		AIController->SetFireRange(FireRange);
 		AIController->SetFireRate(FireRate);
-	}
+	}*/
 }
 
 void APawnBase::InitializeHealthBar()

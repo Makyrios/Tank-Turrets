@@ -55,7 +55,7 @@ void ABasePlayerController::Shoot(const FInputActionValue& Value)
 	}
 }
 
-void ABasePlayerController::SetPlayerEnabledState(bool bEnableInput)
+void ABasePlayerController::SetControlEnabledState(bool bEnableInput)
 {
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{

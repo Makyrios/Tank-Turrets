@@ -16,14 +16,19 @@ class TANKS_API ABaseAIController : public AAIController
 
 public:
 	virtual void SetPlayer();
-	virtual void SetFireRate(float newFireRate);
-	virtual void SetFireRange(float newFireRange);
+	//virtual void SetFireRate(float newFireRate);
+	//virtual void SetFireRange(float newFireRange);
 	float GetFireRange() const;
+	float GetFireRate() const;
+
+	void SetControlEnabledState(bool bEnableInput);
 
 private:
-	float FireRate{ 0.f };
+	float FireRate{ 2.f };
 	float FireRange;
 	float LastShootTime{ 0.f };
+	
+	bool bEnableControl = false;
 
 protected:
 	TObjectPtr<class APawnBase> PlayerPawn{ nullptr };
@@ -35,4 +40,5 @@ protected:
 	void RotateToPlayer();
 	virtual bool InFireRange();
 	virtual void OnPossess(APawn* InPawn) override;
+
 };
