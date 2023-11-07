@@ -21,6 +21,7 @@ public:
 	void RotateMuzzle(float LookAtTarget);
 	
 	void RotateTowerAI(FVector LookAtTarget);
+	void RotateMuzzleAI(FRotator LookAtTarget);
 	
 	float GetRotateDegreeMax() { return RotateDegreeMax; }
 	float GetRotateDegreeMin() { return RotateDegreeMin; }
@@ -77,6 +78,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float TowerRotationSpeed{10.f};
+
+	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	float MuzzleRotationSpeed{ 10.f };
 	
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float FireRate{2.f};

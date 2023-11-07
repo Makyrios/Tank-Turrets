@@ -40,6 +40,7 @@ protected:
 	virtual void Tick(float DeltaSeconds) override final;
 	void ShootInFireRange();
 	void RotateTurretToPlayer();
+	void RotateMuzzleToPlayer();
 	virtual bool InFireRange();
 	virtual void OnPossess(APawn* InPawn) override;
 

@@ -6,6 +6,7 @@
 #include "Actors/PawnBase.h"
 #include "Kismet/GameplayStatics.h"
 #include <GameModes/BaseGameMode.h>
+#include "Kismet/KismetMathLibrary.h"
 
 void ABaseAIController::OnPossess(APawn* InPawn)
 {
@@ -47,17 +48,25 @@ void ABaseAIController::ShootInFireRange()
 }
 
 void ABaseAIController::ExecuteTasks(float DeltaTime)
-{
-	RotateTurretToPlayer();
-	ShootInFireRange();
+{	
+	if (PlayerPawn != nullptr && PPawn != nullptr)
+	{			
+		RotateTurretToPlayer();
+		RotateMuzzleToPlayer();
+		ShootInFireRange();
+	}
+	
 }
 
 void ABaseAIController::RotateTurretToPlayer()
 {
-	if (PlayerPawn != nullptr && PPawn != nullptr)
-	{
-		PPawn->RotateTowerAI(PlayerPawn->GetActorLocation());
-	}
+	PPawn->RotateTowerAI(PlayerPawn->GetActorLocation());
+}
+
+void ABaseAIController::RotateMuzzleToPlayer()
+{	
+	FRotator LookAtPlayer = UKismetMathLibrary::FindLookAtRotation(CurrentPosition, PlayerPawn->GetActorLocation());
+	PPawn->RotateMuzzleAI(LookAtPlayer);
 }
 
 void ABaseAIController::OnGameStart()

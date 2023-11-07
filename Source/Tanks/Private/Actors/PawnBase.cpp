@@ -9,6 +9,7 @@
 #include "Components/WidgetComponent.h"
 #include <Kismet/GameplayStatics.h>
 #include <Widgets/HealthBarWidget.h>
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -70,16 +71,6 @@ void APawnBase::InitializeController()
 	}*/
 }
 
-bool APawnBase::MuzzleRotationInRange(const float& LookAtTarget)
-{	
-	if ((MeshMuzzle->GetRelativeRotation().Pitch > RotateDegreeMin && LookAtTarget < 0) ||
-		(MeshMuzzle->GetRelativeRotation().Pitch < RotateDegreeMax && LookAtTarget > 0))
-	{
-		return true;
-	}
-	return false;
-}
-
 void APawnBase::InitializeHealthBar()
 {
 	UUserWidget* Widget = CreateWidget<UHealthBarWidget>(UGameplayStatics::GetPlayerController(this, 0), HealthBarWidgetClass);
@@ -92,6 +83,17 @@ void APawnBase::InitializeHealthBar()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Health widget cast fail"));
 	}
+}
+
+bool APawnBase::MuzzleRotationInRange(const float& LookAtTarget)
+{	
+	double CurrentRotation = MeshMuzzle->GetRelativeRotation().Pitch;
+	if ((CurrentRotation >= RotateDegreeMin && LookAtTarget < 0.f) ||
+		(CurrentRotation <= RotateDegreeMax && LookAtTarget > 0.f))
+	{
+		return true;
+	}
+	return false;
 }
 
 
@@ -113,12 +115,21 @@ void APawnBase::RotateMuzzle(float LookAtTarget)
 
 void APawnBase::RotateTowerAI(FVector LookAtTarget)
 {
-	FVector TagetLocation = LookAtTarget - MeshTower->GetComponentLocation();
+	FVector TargetLocation = LookAtTarget - MeshTower->GetComponentLocation();
 
-	FRotator MeshRotation{0.f, TagetLocation.Rotation().Yaw, 0.f};
+	FRotator MeshRotation{0.f, TargetLocation.Rotation().Yaw, 0.f};
 	
 	MeshTower->SetWorldRotation(FMath::RInterpTo(MeshTower->GetComponentRotation(), MeshRotation,
 		GetWorld()->GetDeltaSeconds(), TowerRotationSpeed));
+}
+
+void APawnBase::RotateMuzzleAI(FRotator LookAtTarget)
+{	
+	double deltaAngle = LookAtTarget.Pitch - MeshMuzzle->GetRelativeRotation().Pitch;
+	if (MuzzleRotationInRange(deltaAngle))
+	{
+		MeshMuzzle->AddRelativeRotation({ deltaAngle,0,0 });
+	}	
 }
 
 void APawnBase::Fire()
