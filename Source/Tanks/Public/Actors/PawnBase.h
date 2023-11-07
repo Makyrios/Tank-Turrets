@@ -43,13 +43,13 @@ protected:
 
 	bool MuzzleRotationInRange(const float& LookAtTarget);
 	
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshBase{nullptr};
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshTower{nullptr};
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshMuzzle{nullptr};
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -58,7 +58,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<class USpringArmComponent> SpringArmComponent{nullptr};
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<class USceneComponent> ProjectileSpawnPoint{nullptr};
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")

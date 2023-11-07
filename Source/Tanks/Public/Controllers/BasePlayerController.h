@@ -32,6 +32,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UInputAction> RotateMuzzleAction{nullptr};
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UUserWidget> HUDWidgetClass;
 	
 	TObjectPtr<class APawnBase> PlayerChar{nullptr};
 

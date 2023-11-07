@@ -42,7 +42,7 @@ APawnBase::APawnBase()
 	HealthBarWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
 	HealthBarWidgetComponent->SetDrawSize(FVector2D(300, 20));
 
-	HealthBarWidgetClass = LoadClass<UHealthBarWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/WBP_HealthBarWidget.WBP_HealthBarWidget_C'"));
+	HealthBarWidgetClass = LoadClass<UHealthBarWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/Game/WBP_HealthBarWidget.WBP_HealthBarWidget_C'"));
 	ProjectileClass = LoadClass<AProjectile>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actors/BP_Projectile.BP_Projectile_C'"));
 }
 
@@ -73,6 +73,10 @@ void APawnBase::InitializeController()
 
 void APawnBase::InitializeHealthBar()
 {
+	if (HealthBarWidgetClass == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Health Bar Widget Class is null"));
+	}
 	UUserWidget* Widget = CreateWidget<UHealthBarWidget>(UGameplayStatics::GetPlayerController(this, 0), HealthBarWidgetClass);
 	HealthBarWidgetComponent->SetWidget(Widget);
 	if (UHealthBarWidget* Health = Cast<UHealthBarWidget>(HealthBarWidgetComponent->GetWidget()))

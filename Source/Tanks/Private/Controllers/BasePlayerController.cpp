@@ -7,12 +7,12 @@
 #include "EnhancedInputSubsystems.h"
 #include <GameModes/BaseGameMode.h>
 #include <Kismet/GameplayStatics.h>
+#include "Blueprint/UserWidget.h"
 
 
 ABasePlayerController::ABasePlayerController()
 {
-	//bShowMouseCursor = true;
-	//DefaultMouseCursor = EMouseCursor::Crosshairs;
+	HUDWidgetClass = LoadClass<UUserWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/HUD/WBP_HUD.WBP_HUD_C'"));
 }
 
 void ABasePlayerController::BeginPlay()
@@ -25,6 +25,12 @@ void ABasePlayerController::BeginPlay()
 
 	ABaseGameMode* GameMode = Cast<ABaseGameMode>(UGameplayStatics::GetGameMode(this));
 	GameMode->OnGameStart.AddUObject(this, &ABasePlayerController::OnGameStart);
+
+	if (HUDWidgetClass != nullptr)
+	{
+		UUserWidget* HUD = CreateWidget(this, HUDWidgetClass);
+		HUD->AddToViewport();
+	}
 }
 
 void ABasePlayerController::SetupInputComponent()
