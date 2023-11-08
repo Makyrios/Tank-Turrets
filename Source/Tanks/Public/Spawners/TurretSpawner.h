@@ -14,18 +14,9 @@ UCLASS()
 class TANKS_API ATurretSpawner : public ABaseSpawner
 {
 	GENERATED_BODY()
-public:
-	virtual void SpawnObject() override;
-	virtual void SetObjectData() override;
 
-protected:
-	virtual void BeginPlay() override;
-	
 private:
 	TObjectPtr<ATurret> SpawnedActor;
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Spawned Object Settings")
+
 	TSubclassOf<ATurret> ActorToCreate;
-
-
 };
