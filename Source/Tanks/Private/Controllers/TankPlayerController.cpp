@@ -30,6 +30,7 @@ void ATankPlayerController::SetupInputComponent()
 		// Bind the actions
 		UEI->BindAction(ForwardMoving.Get(), ETriggerEvent::Triggered, this, &ATankPlayerController::MoveForward);
 		UEI->BindAction(SidewaysMoving.Get(), ETriggerEvent::Triggered, this, &ATankPlayerController::MoveSideway);
+		UEI->BindAction(StabilizationToggle.Get(), ETriggerEvent::Started, this, &ATankPlayerController::ToggleStabilization);
 	}
 }
 
@@ -51,5 +52,16 @@ void ATankPlayerController::MoveSideway(const FInputActionValue& Value)
 		DeltaRotation.Yaw = Value.Get<float>() * GetWorld()->GetDeltaSeconds() * PlayerChar->GetRotationSpeed();
 
 		PlayerChar->AddActorLocalRotation(DeltaRotation);
+		if (bIsStabilized)
+		{
+			FRotator NegativeDeltaRotation = DeltaRotation;
+			NegativeDeltaRotation.Yaw = -NegativeDeltaRotation.Yaw;
+			PlayerChar->GetMeshTower()->AddLocalRotation(NegativeDeltaRotation);
+		}
 	}
+}
+
+void ATankPlayerController::ToggleStabilization()
+{
+	bIsStabilized = !bIsStabilized;
 }
