@@ -10,7 +10,6 @@
 #include <Kismet/GameplayStatics.h>
 #include <Widgets/HealthBarWidget.h>
 #include "Kismet/KismetMathLibrary.h"
-#include "Components/SphereComponent.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -43,9 +42,8 @@ APawnBase::APawnBase()
 	HealthBarWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
 	HealthBarWidgetComponent->SetDrawSize(FVector2D(300, 20));
 
-
-	HealthBarWidgetClass = LoadClass<UHealthBarWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/Game/WBP_HealthBarWidget.WBP_HealthBarWidget_C'"));
-	ProjectileClass = LoadClass<AProjectile>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actors/BP_Projectile.BP_Projectile_C'"));
+	HealthBarWidgetClass = LoadClass<UHealthBarWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/WBP_HealthBarWidget.WBP_HealthBarWidget_C'"));
+	ProjectileClass = LoadClass<AProjectile>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actors/BP_Projectile.BP_Projectile'"));
 }
 
 
@@ -54,40 +52,12 @@ APawnBase::APawnBase()
 void APawnBase::BeginPlay()
 {
 	Super::BeginPlay();
+
 	
-	PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
 	
-	//InitializeController();
+	InitializeController();
 
 	InitializeHealthBar();
-}
-
-void APawnBase::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-	UpdateHealthBarVisibility();
-	
-}
-
-void APawnBase::UpdateHealthBarVisibility()
-{
-	FHitResult HitResult;
-	FVector Start = MeshTower->GetComponentLocation();
-	FVector End = Start + (PlayerPawn->GetActorLocation() - Start).GetSafeNormal() * HealthBarVisibilityRange;
-	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(this);
-	bool bWasHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility, Params);
-	if (bWasHit)
-	{
-		UE_LOG(LogTemp, Display, TEXT("%s"), *HitResult.GetActor()->GetActorNameOrLabel());
-		if (HitResult.GetActor()->ActorHasTag(FName("Player")))
-		{
-			HealthBarWidgetComponent->SetVisibility(true);
-			return;
-		}
-	}
-	HealthBarWidgetComponent->SetVisibility(false);
 }
 
 void APawnBase::InitializeController()
@@ -103,10 +73,6 @@ void APawnBase::InitializeController()
 
 void APawnBase::InitializeHealthBar()
 {
-	if (HealthBarWidgetClass == nullptr)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Health Bar Widget Class is null"));
-	}
 	UUserWidget* Widget = CreateWidget<UHealthBarWidget>(UGameplayStatics::GetPlayerController(this, 0), HealthBarWidgetClass);
 	HealthBarWidgetComponent->SetWidget(Widget);
 	if (UHealthBarWidget* Health = Cast<UHealthBarWidget>(HealthBarWidgetComponent->GetWidget()))
@@ -129,6 +95,7 @@ bool APawnBase::MuzzleRotationInRange(const float& LookAtTarget)
 	}
 	return false;
 }
+
 
 void APawnBase::RotateTower(float LookAtTarget)
 {
@@ -169,6 +136,8 @@ void APawnBase::Fire()
 {
 	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentTransform());
 	Projectile->SetOwner(this);
+
+	
 }
 
 

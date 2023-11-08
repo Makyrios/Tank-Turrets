@@ -16,7 +16,7 @@ class TANKS_API ABaseAIController : public AAIController
 
 public:
 	virtual void SetPlayer();
-	//virtual void SetFireRate(float newFireRate);
+	void SetFireRate(float newFireRate);
 	//virtual void SetFireRange(float newFireRange);
 	float GetFireRange() const;
 	float GetFireRate() const;

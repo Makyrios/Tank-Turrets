@@ -19,16 +19,28 @@ AProjectile::AProjectile()
 	ProjectileMovementComponent->MaxSpeed = 1000.f;
 }
 
+
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	FTimerHandle TimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ThisClass::DeleteProjectileAfterSpawn, ProjectileLifeTime, false);
 
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &ThisClass::OnHit);
 }
 
+void AProjectile::DeleteProjectileAfterSpawn()
+{
+	if (this)
+	{
+		Destroy();
+	}
+}
+
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-	FVector NormalImpulse, const FHitResult& HitResult)
+                        FVector NormalImpulse, const FHitResult& HitResult)
 {
 	if (OtherActor && OtherActor != this && OtherActor != GetOwner())
 	{
@@ -36,6 +48,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	}
 	
 	Destroy();
+	
 }
 
 
