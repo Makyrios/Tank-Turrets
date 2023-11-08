@@ -22,9 +22,11 @@ public:
 	
 	void RotateTowerAI(FVector LookAtTarget);
 	void RotateMuzzleAI(FRotator LookAtTarget);
+
+	void SetDamage(float& new_Damage);
 	
 	float GetRotateDegreeMax() { return RotateDegreeMax; }
-	float GetRotateDegreeMin() { return RotateDegreeMin; }
+	float GetRotateDegreeMin() { return RotateDegreeMin; }	
 	
 	inline float GetFireRate() const { return FireRate; }
 	inline float GetFireRange() const { return FireRange; }
@@ -105,5 +107,5 @@ protected:
 
 private:
 	TObjectPtr<APawn> PlayerPawn;
-
+	float Damage{ 10.f };
 };

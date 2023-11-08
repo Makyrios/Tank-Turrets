@@ -166,11 +166,16 @@ void APawnBase::RotateMuzzleAI(FRotator LookAtTarget)
 	}	
 }
 
+void APawnBase::SetDamage(float& new_Damage)
+{
+	Damage = new_Damage;
+}
+
 void APawnBase::Fire()
 {
 	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentTransform());
 	Projectile->SetOwner(this);
-
+	Projectile->SetDamage(Damage);
 	
 }
 

@@ -14,16 +14,12 @@ class TANKS_API ATankSpawner : public ABaseSpawner
 {
 	GENERATED_BODY()
 public:
-	virtual void SpawnObject() override;
 	virtual void SetObjectData() override;
 	
 protected:
-	virtual void BeginPlay() override;
-	
-private:
 	TObjectPtr<ATank> SpawnedActor;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Spawned Object Settings")
+private:	
 	TSubclassOf<ATank> ActorToCreate;
 
 	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")

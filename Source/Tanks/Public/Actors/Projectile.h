@@ -14,7 +14,7 @@ class TANKS_API AProjectile : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AProjectile();
-
+	void SetDamage(float& new_Damage);
 	
 protected:
 	virtual void BeginPlay() override;
