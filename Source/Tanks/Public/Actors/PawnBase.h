@@ -97,7 +97,9 @@ protected:
 	float RotateDegreeMax{15.0f};
 
 	UPROPERTY(EditAnywhere, Category = "UI", meta = (AllowPrivateAccess = true))
-	float HealthBarVisibilityRange{ 500.f };
+	float HealthBarVisibilityRange{ 1500.f };
+
+	bool bIsPlayer = false;
 
 private:
 	TObjectPtr<APawn> PlayerPawn;

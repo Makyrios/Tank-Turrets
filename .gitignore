@@ -2,7 +2,8 @@ Binaries
 DerivedDataCache
 Intermediate
 Saved
-Content/ParagonGideon
+Platforms
+Content
 .vscode
 .vs
 *.VC.db
@@ -13,5 +14,3 @@ Content/ParagonGideon
 *.suo
 *.xcodeproj
 *.xcworkspace
-TODO.txt
-Specials.txt

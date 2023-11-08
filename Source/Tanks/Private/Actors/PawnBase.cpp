@@ -40,7 +40,7 @@ APawnBase::APawnBase()
 	HealthBarWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("Health Bar Widget Component"));
 	HealthBarWidgetComponent->SetupAttachment(RootComponent);
 	HealthBarWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
-	HealthBarWidgetComponent->SetDrawSize(FVector2D(300, 20));
+	HealthBarWidgetComponent->SetDrawSize(FVector2D(250, 20));
 
 	HealthBarWidgetClass = LoadClass<UHealthBarWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/WBP_HealthBarWidget.WBP_HealthBarWidget_C'"));
 	ProjectileClass = LoadClass<AProjectile>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actors/BP_Projectile.BP_Projectile'"));
@@ -53,11 +53,45 @@ void APawnBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
-	
-	InitializeController();
+	PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
+	if (PlayerPawn == this)
+	{
+		bIsPlayer = true;
+	}
 
-	InitializeHealthBar();
+	if (!bIsPlayer)
+	{
+		InitializeHealthBar();
+	}
+}
+
+void APawnBase::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (!bIsPlayer)
+	{
+		UpdateHealthBarVisibility();
+	}
+}
+
+void APawnBase::UpdateHealthBarVisibility()
+{
+	FHitResult HitResult;
+	FVector Start = CameraComponent->GetComponentLocation();
+	FVector End = Start + (PlayerPawn->GetActorLocation() - Start).GetSafeNormal() * HealthBarVisibilityRange;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+	bool bWasHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility, Params);
+	if (bWasHit)
+	{
+		if (HitResult.GetActor()->ActorHasTag(FName("Player")))
+		{
+			HealthBarWidgetComponent->SetVisibility(true);
+			return;
+		}
+	}
+	HealthBarWidgetComponent->SetVisibility(false);
 }
 
 void APawnBase::InitializeController()
