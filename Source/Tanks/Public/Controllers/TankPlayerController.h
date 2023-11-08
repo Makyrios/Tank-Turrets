@@ -20,6 +20,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UInputAction> SidewaysMoving{ nullptr };
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UInputAction> StabilizationToggle{ nullptr };
 	
 	TObjectPtr<class ATank> PlayerChar{ nullptr };
 
@@ -28,5 +31,11 @@ protected:
 	virtual void SetupInputComponent() override;
 	void MoveForward(const struct FInputActionValue& Value);
 	void MoveSideway(const struct FInputActionValue& Value);
+	void ToggleStabilization();
+
+private:
+	bool bIsStabilized = false;
+
+	FRotator CurrentTowerRotation;
 	
 };

@@ -29,10 +29,12 @@ public:
 	inline float GetFireRate() const { return FireRate; }
 	inline float GetFireRange() const { return FireRange; }
 	inline float GetTowerRotationSpeed() const { return TowerRotationSpeed; }
+	inline TObjectPtr<UStaticMeshComponent> GetMeshTower() const { return MeshTower; }
 
 	inline void SetFireRange(float NewFireRange) { FireRange = NewFireRange; }
 	inline void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
 	inline void SetTowerRotationSpeed(float NewRotationSpeed) { TowerRotationSpeed = NewRotationSpeed; }
+
 	
 protected:
 	virtual void BeginPlay() override;
