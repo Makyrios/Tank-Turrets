@@ -67,7 +67,7 @@ void ABaseAIController::RotateTurretToPlayer()
 
 void ABaseAIController::RotateMuzzleToPlayer()
 {	
-	FRotator LookAtPlayer = UKismetMathLibrary::FindLookAtRotation(CurrentPosition, PlayerPawn->GetActorLocation());
+	FRotator LookAtPlayer = UKismetMathLibrary::FindLookAtRotation(CurrentPosition, PlayerPawn->GetBaseMesh()->GetComponentLocation());
 	PPawn->RotateMuzzleAI(LookAtPlayer);
 }
 
