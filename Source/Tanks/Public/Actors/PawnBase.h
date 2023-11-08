@@ -72,10 +72,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "HUD")
 	TSubclassOf<class UHealthBarWidget> HealthBarWidgetClass;
-
-	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
-	float FireRange{ 500.f };
-
+	
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float TowerRotationSpeed{10.f};
 
@@ -85,6 +82,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float FireRate{2.f};
 
+	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	float FireRange{ 2000.f };
+	
 	FTimerHandle FireRateTimer;
 	
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))

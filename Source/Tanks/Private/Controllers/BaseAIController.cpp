@@ -39,7 +39,7 @@ void ABaseAIController::ShootInFireRange()
 	if (InFireRange())
 	{
 		float CurrentTime = GetWorld()->GetTimeSeconds();
-		if (CurrentTime - LastShootTime >= FireRate) // Check if Xsec (FireRate) is passed from the last shoot
+		if (CurrentTime - LastShootTime >= PPawn->GetFireRate()) // Check if Xsec (FireRate) is passed from the last shoot
 		{
 			PPawn->Fire();
 			LastShootTime = CurrentTime; // Override LastShootTime (contains last shoot time) with time when actual shoot is happening
@@ -93,11 +93,13 @@ void ABaseAIController::SetPlayer()
 	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));
 }
 
-//void ABaseAIController::SetFireRate(float newFireRate)
-//{
-//	FireRate = newFireRate;
-//}
-//
+/*
+void ABaseAIController::SetFireRate(float newFireRate)
+{
+	FireRate = newFireRate;
+}
+*/
+
 //void ABaseAIController::SetFireRange(float newFireRange)
 //{
 //	FireRange = newFireRange;

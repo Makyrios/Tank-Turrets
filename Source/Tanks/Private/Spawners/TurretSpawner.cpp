@@ -8,7 +8,8 @@ void ATurretSpawner::SpawnObject()
 {	
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.Owner = this;
-	SpawnedActor = GetWorld()->SpawnActor<ATurret>(ActorToCreate, GetActorLocation(), FRotator::ZeroRotator, SpawnParams);
+	SpawnedActor = GetWorld()->SpawnActor<ATurret>(ActorToCreate, GetActorLocation(), FRotator::ZeroRotator);
+	
 	if (SpawnedActor)
 	{
 		SetObjectData();
@@ -17,10 +18,12 @@ void ATurretSpawner::SpawnObject()
 
 void ATurretSpawner::SetObjectData()
 {
+	SpawnedActor->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
 	SpawnedActor->SetFireRange(FireRange);
 	SpawnedActor->SetFireRate(FireRate);
 	SpawnedActor->SetTowerRotationSpeed(TowerRotationSpeed);
 	SpawnedActor->SpawnDefaultController();
+	SpawnedActor->SetActorRotation(GetActorRotation());
 }
 
 void ATurretSpawner::BeginPlay()

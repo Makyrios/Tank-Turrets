@@ -19,6 +19,8 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	void DeleteProjectileAfterSpawn();
+	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UProjectileMovementComponent> ProjectileMovementComponent{nullptr};
 	
@@ -30,5 +32,10 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ProjectileDamage{10.f};
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float ProjectileLifeTime{ 5.f };
+
+	
 
 };
