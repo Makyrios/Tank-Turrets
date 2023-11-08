@@ -37,11 +37,13 @@ public:
 	inline void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
 	inline void SetTowerRotationSpeed(float NewRotationSpeed) { TowerRotationSpeed = NewRotationSpeed; }
 
+<<<<<<< Updated upstream
 	
+=======
+>>>>>>> Stashed changes
 protected:
 	virtual void BeginPlay() override;
-
-	virtual void Tick(float DeltaTime) override;
+	
 
 	void UpdateHealthBarVisibility();
 

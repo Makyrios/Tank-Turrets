@@ -36,6 +36,5 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ProjectileLifeTime{ 5.f };
 
-	
 
 };
