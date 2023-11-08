@@ -18,8 +18,4 @@ public:
 	UPROPERTY(EditAnywhere, Category = Input)
 	float RotationSpeed = 0.5f;
 	
-protected:
-	
-	virtual void SetupInputComponent() override;
-	
 };

@@ -11,7 +11,7 @@ void ATurretGameMode::HandleActorKilled(AActor* KilledActor)
 {
 	Super::HandleActorKilled(KilledActor);
 
-	if (KilledActor->ActorHasTag("Turret"))
+	if (KilledActor->ActorHasTag("Player"))
 	{
 		StopGame(false);
 	}

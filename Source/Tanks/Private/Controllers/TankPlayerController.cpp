@@ -11,9 +11,14 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
+
+}
+
+void ATankPlayerController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
 	PlayerChar = Cast<ATank>(GetPawn());
-
-
 }
 
 void ATankPlayerController::SetupInputComponent()
