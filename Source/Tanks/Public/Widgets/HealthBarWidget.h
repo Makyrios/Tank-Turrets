@@ -18,6 +18,7 @@ class TANKS_API UHealthBarWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(BlueprintCallable)
 	void InitializeWidget(UHealthComponent* HealthComp);
 
 private:

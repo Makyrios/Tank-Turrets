@@ -47,9 +47,8 @@ void UHealthComponent::BeginPlay()
 	Super::BeginPlay();
 	
 	UE_LOG(LogTemp, Display, TEXT("Health comp: %s"), *GetOwner()->GetActorNameOrLabel())
-	Health = MaxHealth;
+	//Health = MaxHealth;
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DamageTaken);
-	
 }
 
 void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

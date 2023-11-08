@@ -18,10 +18,6 @@ ABasePlayerController::ABasePlayerController()
 void ABasePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	PlayerChar = Cast<APawnBase>(GetPawn());
-
-	SetControlEnabledState(false);
 
 	ABaseGameMode* GameMode = Cast<ABaseGameMode>(UGameplayStatics::GetGameMode(this));
 	GameMode->OnGameStart.AddUObject(this, &ABasePlayerController::OnGameStart);
@@ -31,6 +27,15 @@ void ABasePlayerController::BeginPlay()
 		UUserWidget* HUD = CreateWidget(this, HUDWidgetClass);
 		HUD->AddToViewport();
 	}
+}
+
+void ABasePlayerController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	PlayerChar = Cast<APawnBase>(InPawn);
+	PlayerChar->Tags.Add(FName("Player"));
+	SetControlEnabledState(false);
 }
 
 void ABasePlayerController::SetupInputComponent()

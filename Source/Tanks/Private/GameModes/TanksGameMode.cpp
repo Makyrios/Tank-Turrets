@@ -19,7 +19,7 @@ void ATanksGameMode::HandleActorKilled(AActor* KilledActor)
 {
 	Super::HandleActorKilled(KilledActor);
 
-	if (KilledActor->ActorHasTag("Tank"))
+	if (KilledActor->ActorHasTag("Player"))
 	{
 		StopGame(false);
 	}

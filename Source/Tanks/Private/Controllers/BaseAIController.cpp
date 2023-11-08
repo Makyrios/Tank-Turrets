@@ -27,6 +27,8 @@ void ABaseAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
+	if (PlayerPawn == nullptr || PPawn == nullptr) { return; }
+
 	if (bEnableControl)
 	{
 		ExecuteTasks(DeltaSeconds);

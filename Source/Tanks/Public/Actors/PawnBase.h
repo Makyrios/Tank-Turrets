@@ -37,6 +37,10 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	virtual void Tick(float DeltaTime) override;
+
+	void UpdateHealthBarVisibility();
+
 	void InitializeHealthBar();
 
 	void InitializeController();
@@ -52,16 +56,16 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshMuzzle{nullptr};
 	
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<class UCameraComponent> CameraComponent{nullptr};
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<class USpringArmComponent> SpringArmComponent{nullptr};
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<class USceneComponent> ProjectileSpawnPoint{nullptr};
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<class UHealthComponent> HealthComponent{nullptr};
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -91,4 +95,11 @@ protected:
 	float RotateDegreeMin{-12.0f};
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float RotateDegreeMax{15.0f};
+
+	UPROPERTY(EditAnywhere, Category = "UI", meta = (AllowPrivateAccess = true))
+	float HealthBarVisibilityRange{ 500.f };
+
+private:
+	TObjectPtr<APawn> PlayerPawn;
+
 };

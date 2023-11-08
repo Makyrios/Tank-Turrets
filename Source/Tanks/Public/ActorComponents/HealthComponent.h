@@ -35,5 +35,5 @@ public:
 private:
 	UPROPERTY(EditAnywhere, Category = "Health", meta = (AllowPrivateAccess = true))
 	float MaxHealth = 100.f;
-	float Health = 0.f;
+	float Health = MaxHealth;
 };

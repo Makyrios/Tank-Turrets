@@ -5,9 +5,3 @@
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"
 
-void ATurretPlayerController::SetupInputComponent()
-{
-	Super::SetupInputComponent();
-	
-}
-
