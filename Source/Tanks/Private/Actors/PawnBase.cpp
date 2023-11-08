@@ -73,13 +73,14 @@ void APawnBase::Tick(float DeltaTime)
 void APawnBase::UpdateHealthBarVisibility()
 {
 	FHitResult HitResult;
-	FVector Start = GetActorLocation();
+	FVector Start = MeshTower->GetComponentLocation();
 	FVector End = Start + (PlayerPawn->GetActorLocation() - Start).GetSafeNormal() * HealthBarVisibilityRange;
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
 	bool bWasHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility, Params);
 	if (bWasHit)
 	{
+		UE_LOG(LogTemp, Display, TEXT("%s"), *HitResult.GetActor()->GetActorNameOrLabel());
 		if (HitResult.GetActor()->ActorHasTag(FName("Player")))
 		{
 			HealthBarWidgetComponent->SetVisibility(true);
