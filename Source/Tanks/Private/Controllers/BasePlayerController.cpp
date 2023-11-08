@@ -19,6 +19,9 @@ void ABasePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SetInputMode(FInputModeGameOnly());
+	bShowMouseCursor = false;
+
 	ABaseGameMode* GameMode = Cast<ABaseGameMode>(UGameplayStatics::GetGameMode(this));
 	GameMode->OnGameStart.AddUObject(this, &ABasePlayerController::OnGameStart);
 
