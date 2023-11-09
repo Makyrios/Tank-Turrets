@@ -12,15 +12,16 @@ void ABaseAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-
 	PPawn = Cast<APawnBase>(InPawn);
 	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));
 	CurrentPosition = PPawn->GetActorLocation();
 
-	SetControlEnabledState(false);
-
-	ABaseGameMode* GameMode = Cast<ABaseGameMode>(UGameplayStatics::GetGameMode(this));
-	GameMode->OnGameStart.AddUObject(this, &ABaseAIController::OnGameStart);
+	if (PlayerPawn != nullptr)
+	{
+		SetControlEnabledState(false);
+		ABaseGameMode* GameMode = Cast<ABaseGameMode>(UGameplayStatics::GetGameMode(this));
+		GameMode->OnGameStart.AddUObject(this, &ABaseAIController::OnGameStart);
+	}
 }
 
 void ABaseAIController::Tick(float DeltaSeconds)
