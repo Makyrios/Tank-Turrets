@@ -18,7 +18,7 @@ public:
 	
 
 	virtual void Tick(float DeltaTime) override;
-	virtual void SetObjectData();
+	virtual void SetObjectData(TObjectPtr<APawnBase> SpawnActor);
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Spawned Object Settings")
@@ -43,7 +43,6 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Spawn Settings")
 	int NumberToSpawn{ 1 };
 
-	TObjectPtr<APawnBase> SpawnedActor;
 private:
 	
 

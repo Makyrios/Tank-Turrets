@@ -18,15 +18,15 @@ void ABaseSpawner::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ABaseSpawner::SetObjectData()
+void ABaseSpawner::SetObjectData(TObjectPtr<APawnBase> SpawnActor)
 {	
-	if (SpawnedActor)
+	if (SpawnActor)
 	{
-		SpawnedActor->SetTowerRotationSpeed(TowerRotationSpeed);
-		SpawnedActor->SetFireRange(FireRange);
-		SpawnedActor->SetFireRate(FireRate);
-		SpawnedActor->SpawnDefaultController();
-		SpawnedActor->SetDamage(Damage);
+		SpawnActor->SetTowerRotationSpeed(TowerRotationSpeed);
+		SpawnActor->SetFireRange(FireRange);
+		SpawnActor->SetFireRate(FireRate);
+		SpawnActor->SpawnDefaultController();
+		SpawnActor->SetDamage(Damage);
 	}
 }
 
@@ -65,8 +65,8 @@ void ABaseSpawner::SpawnEnemies(TArray<class ATargetPoint*> SelectedPoints)
 		{	
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = this;
-			SpawnedActor = GetWorld()->SpawnActor<APawnBase>(ActorToCreate, SpawnPoint->GetActorLocation(), SpawnPoint->GetActorRotation(), SpawnParams);
-			SetObjectData();
+			APawnBase* SpawnActor = GetWorld()->SpawnActor<APawnBase>(ActorToCreate, SpawnPoint->GetActorLocation(), SpawnPoint->GetActorRotation(), SpawnParams);
+			SetObjectData(SpawnActor);
 		}
 		else
 		{

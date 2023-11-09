@@ -14,14 +14,9 @@ class TANKS_API ATankSpawner : public ABaseSpawner
 {
 	GENERATED_BODY()
 public:
-	virtual void SetObjectData() override;
-	
-protected:
-	TObjectPtr<ATank> SpawnedActor;
+	virtual void SetObjectData(TObjectPtr<APawnBase> SpawnActor) override;
 
-private:	
-	TSubclassOf<ATank> ActorToCreate;
-
+private:
 	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
 	float MovingSpeed{ 20.f };
 

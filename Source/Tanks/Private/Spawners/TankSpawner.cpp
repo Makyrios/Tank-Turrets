@@ -5,13 +5,15 @@
 
 
 
-void ATankSpawner::SetObjectData()
+void ATankSpawner::SetObjectData(TObjectPtr<APawnBase> SpawnActor)
 {	
-	Super::SetObjectData();
-	if (SpawnedActor)
+	Super::SetObjectData(SpawnActor);
+
+	ATank* TankActor = Cast<ATank>(SpawnActor);
+	if (TankActor)
 	{
-		SpawnedActor->SetRotationSpeed(RotationSpeed);	
-		SpawnedActor->SetMovingSpeed(MovingSpeed);	
+		TankActor->SetRotationSpeed(RotationSpeed);
+		TankActor->SetMovingSpeed(MovingSpeed);
 	}
 }
 
