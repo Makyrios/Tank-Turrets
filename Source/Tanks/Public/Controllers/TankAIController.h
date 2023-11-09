@@ -22,6 +22,7 @@ protected:
 
 private:
 	TObjectPtr<ATank> TankPawn;
+	TObjectPtr<APawn> PlayerPawn;
 
 	FVector MoveLocation;
 
@@ -29,6 +30,8 @@ private:
 
 	void FindMoveToLocation(const FVector& Point, float Radius);
 
-	void MoveToLocation(const FVector& Location, float DeltaTime);
+	void RotateBaseToMovement();
+
+	//void MoveToLocation(const FVector& Location, float DeltaTime);
 
 };

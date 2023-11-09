@@ -14,6 +14,10 @@ class TANKS_API ATank : public APawnBase
 {
 	GENERATED_BODY()
 
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	TObjectPtr<class UFloatingPawnMovement> FloatingMovementComponent;
+
 public:
 	ATank();
 
@@ -22,11 +26,13 @@ public:
 	void SetMovingSpeed(float NewMovingSpeed);
 	void SetRotationSpeed(float NewRotationSpeed);
 
+	void RotateBase(FRotator Rotation);
+
+
 protected:
 	void BeginPlay() override;
 
 private:
-
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
 	float MovingSpeed {20.f};
 

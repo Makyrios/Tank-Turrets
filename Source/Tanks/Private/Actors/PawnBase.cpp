@@ -43,9 +43,8 @@ APawnBase::APawnBase()
 	HealthBarWidgetComponent->SetDrawSize(FVector2D(250, 20));
 
 	
-	
-	HealthBarWidgetClass = LoadClass<UHealthBarWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/WBP_HealthBarWidget.WBP_HealthBarWidget_C'"));
-	ProjectileClass = LoadClass<AProjectile>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actors/BP_Projectile.BP_Projectile'"));
+	HealthBarWidgetClass = LoadClass<UHealthBarWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/Game/WBP_HealthBarWidget.WBP_HealthBarWidget_C'"));
+	ProjectileClass = LoadClass<AProjectile>(NULL, TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actors/BP_Projectile.BP_Projectile_C'"));
 }
 
 
@@ -65,6 +64,7 @@ void APawnBase::BeginPlay()
 	{
 		InitializeHealthBar();
 	}
+
 }
 
 void APawnBase::Tick(float DeltaTime)
