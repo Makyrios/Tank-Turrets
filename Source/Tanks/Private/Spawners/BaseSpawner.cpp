@@ -49,7 +49,7 @@ TArray<class ATargetPoint*> ABaseSpawner::ChoosePoints()
 	while (SelectedPoints.Num() < NumberToSpawn)
 	{
 		int Temp_idx = FMath::RandRange(0, NumberToSpawn);
-		if (!SelectedPoints.Contains(SpawnPoints[Temp_idx]))
+		if (SpawnPoints.IsValidIndex(Temp_idx) && !SelectedPoints.Contains(SpawnPoints[Temp_idx]))
 		{
 			SelectedPoints.Push(SpawnPoints[Temp_idx]);
 		}

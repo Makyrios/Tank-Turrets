@@ -8,7 +8,10 @@
 void ATankSpawner::SetObjectData()
 {	
 	Super::SetObjectData();
-	SpawnedActor->SetRotationSpeed(RotationSpeed);	
-	SpawnedActor->SetMovingSpeed(MovingSpeed);	
+	if (SpawnedActor)
+	{
+		SpawnedActor->SetRotationSpeed(RotationSpeed);	
+		SpawnedActor->SetMovingSpeed(MovingSpeed);	
+	}
 }
 
