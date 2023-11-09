@@ -32,18 +32,16 @@ public:
 	inline float GetFireRange() const { return FireRange; }
 	inline float GetTowerRotationSpeed() const { return TowerRotationSpeed; }
 	inline TObjectPtr<UStaticMeshComponent> GetMeshTower() const { return MeshTower; }
-
+	inline TObjectPtr<UStaticMeshComponent> GetBaseMesh() const { return MeshBase; }
+	
 	inline void SetFireRange(float NewFireRange) { FireRange = NewFireRange; }
 	inline void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
 	inline void SetTowerRotationSpeed(float NewRotationSpeed) { TowerRotationSpeed = NewRotationSpeed; }
 
-<<<<<<< Updated upstream
-	
-=======
->>>>>>> Stashed changes
 protected:
 	virtual void BeginPlay() override;
 	
+	virtual void Tick(float DeltaTime) override;
 
 	void UpdateHealthBarVisibility();
 
