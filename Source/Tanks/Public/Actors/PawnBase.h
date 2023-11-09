@@ -50,6 +50,9 @@ protected:
 	void InitializeController();
 
 	bool MuzzleRotationInRange(const float& LookAtTarget);
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USceneComponent> SceneComponent{nullptr};
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshBase{nullptr};
@@ -93,6 +96,10 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float FireRange{ 2000.f };
+
+	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	float Damage{ 10.f };
+
 	
 	FTimerHandle FireRateTimer;
 	
@@ -104,9 +111,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "UI", meta = (AllowPrivateAccess = true))
 	float HealthBarVisibilityRange{ 1500.f };
 
+	
 	bool bIsPlayer = false;
 
 private:
 	TObjectPtr<APawn> PlayerPawn;
-	float Damage{ 10.f };
+	
 };
