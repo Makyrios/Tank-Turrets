@@ -33,7 +33,6 @@ private:
 protected:
 	TObjectPtr<class APawnBase> PlayerPawn{ nullptr };
 	TObjectPtr<class APawnBase>	PPawn{ nullptr };
-	FVector CurrentPosition{ 0.0f };
 
 	virtual void ExecuteTasks(float DeltaTime);
 

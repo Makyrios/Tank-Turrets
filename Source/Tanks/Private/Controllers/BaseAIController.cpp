@@ -14,7 +14,6 @@ void ABaseAIController::OnPossess(APawn* InPawn)
 
 	PPawn = Cast<APawnBase>(InPawn);
 	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));
-	CurrentPosition = PPawn->GetActorLocation();
 
 	if (PlayerPawn != nullptr)
 	{
@@ -37,6 +36,17 @@ void ABaseAIController::Tick(float DeltaSeconds)
 
 }
 
+void ABaseAIController::ExecuteTasks(float DeltaTime)
+{	
+	if (PlayerPawn != nullptr && PPawn != nullptr)
+	{			
+		RotateTurretToPlayer();
+		RotateMuzzleToPlayer();
+		ShootInFireRange();
+	}
+	
+}
+
 void ABaseAIController::ShootInFireRange()
 {
 	if (InFireRange())
@@ -50,17 +60,6 @@ void ABaseAIController::ShootInFireRange()
 	}
 }
 
-void ABaseAIController::ExecuteTasks(float DeltaTime)
-{	
-	if (PlayerPawn != nullptr && PPawn != nullptr)
-	{			
-		RotateTurretToPlayer();
-		RotateMuzzleToPlayer();
-		ShootInFireRange();
-	}
-	
-}
-
 void ABaseAIController::RotateTurretToPlayer()
 {
 	PPawn->RotateTowerAI(PlayerPawn->GetActorLocation());
@@ -68,7 +67,7 @@ void ABaseAIController::RotateTurretToPlayer()
 
 void ABaseAIController::RotateMuzzleToPlayer()
 {	
-	FRotator LookAtPlayer = UKismetMathLibrary::FindLookAtRotation(CurrentPosition, PlayerPawn->GetBaseMesh()->GetComponentLocation());
+	FRotator LookAtPlayer = UKismetMathLibrary::FindLookAtRotation(PPawn->GetActorLocation(), PlayerPawn->GetBaseMesh()->GetComponentLocation());
 	PPawn->RotateMuzzleAI(LookAtPlayer);
 }
 
@@ -81,7 +80,7 @@ bool ABaseAIController::InFireRange()
 {
 	if (PlayerPawn != nullptr && PPawn != nullptr)
 	{
-		float Dist = FVector::Dist(CurrentPosition, PlayerPawn->GetActorLocation());
+		float Dist = FVector::Dist(PPawn->GetActorLocation(), PlayerPawn->GetActorLocation());
 		float Range = GetFireRange();
 		if (Dist <= Range)
 		{

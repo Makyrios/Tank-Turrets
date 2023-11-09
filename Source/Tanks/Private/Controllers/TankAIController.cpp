@@ -20,7 +20,6 @@ void ATankAIController::ExecuteTasks(float DeltaTime)
 
 	RotateBaseToMovement();
 	SetRandomMoveLocation(DeltaTime);
-	DrawDebugSphere(GetWorld(), MoveLocation, 32, 16, FColor::Red);
 }
 
 void ATankAIController::SetRandomMoveLocation(float DeltaTime)
