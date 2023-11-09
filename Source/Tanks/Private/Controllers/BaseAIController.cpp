@@ -96,6 +96,27 @@ void ABaseAIController::SetPlayer()
 	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));
 }
 
+/*
+void ABaseAIController::SetFireRate(float newFireRate)
+{
+	FireRate = newFireRate;
+}
+*/
+
+//void ABaseAIController::SetFireRange(float newFireRange)
+//{
+//	FireRange = newFireRange;
+//}
+
+float ABaseAIController::GetFireRange() const
+{
+	return PPawn->GetFireRange();
+}
+
+float ABaseAIController::GetFireRate() const
+{
+	return PPawn->GetFireRate();
+}
 
 void ABaseAIController::SetControlEnabledState(bool bEnableInput)
 {
