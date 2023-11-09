@@ -2,8 +2,11 @@
 
 
 #include "Actors/Projectile.h"
+
+#include "Components/AudioComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystem.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -17,6 +20,12 @@ AProjectile::AProjectile()
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileMovementComponent->InitialSpeed = 1000.f;
 	ProjectileMovementComponent->MaxSpeed = 1000.f;
+
+	OnHitParticle = CreateDefaultSubobject<UParticleSystem>(TEXT("OnHit Particle"));
+	
+	AudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio Component"));
+	AudioComponent->SetupAttachment(RootComponent);
+	
 }
 
 // Called when the game starts or when spawned
@@ -50,6 +59,8 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	if (OtherActor && OtherActor != this && OtherActor != GetOwner())
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, ProjectileDamage, GetInstigatorController(), this, UDamageType::StaticClass());
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnHitParticle, GetActorLocation());
+		AudioComponent->Play();
 	}
 	
 	Destroy();

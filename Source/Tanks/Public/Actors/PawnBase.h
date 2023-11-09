@@ -80,6 +80,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "HUD")
 	TSubclassOf<class UHealthBarWidget> HealthBarWidgetClass;
+
+	
 	
 	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
 	float TowerRotationSpeed{10.f};
