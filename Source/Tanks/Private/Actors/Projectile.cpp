@@ -34,24 +34,18 @@ void AProjectile::BeginPlay()
 	Super::BeginPlay();
 	
 	FTimerHandle TimerHandle;
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ThisClass::DeleteProjectileAfterSpawn, ProjectileLifeTime, false);
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ThisClass::DeleteProjectileAfterSpawnByLifeTime, ProjectileLifeTime, false);
 
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &ThisClass::OnHit);
 }
 
-void AProjectile::DeleteProjectileAfterSpawn()
+void AProjectile::DeleteProjectileAfterSpawnByLifeTime()
 {
 	if (this)
 	{
 		Destroy();
 	}
 }
-
-void AProjectile::SetDamage(float& new_Damage)
-{
-	ProjectileDamage = new_Damage;
-}
-
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                         FVector NormalImpulse, const FHitResult& HitResult)

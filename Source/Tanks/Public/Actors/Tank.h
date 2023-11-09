@@ -17,10 +17,11 @@ class TANKS_API ATank : public APawnBase
 public:
 	ATank();
 
-	float GetSpeed() {return MovingSpeed;}
-	float GetRotationSpeed() {return RotationSpeed;}
-	void SetMovingSpeed(float NewMovingSpeed);
-	void SetRotationSpeed(float NewRotationSpeed);
+	float GetSpeed() { return MovingSpeed; }
+	float GetRotationSpeed() { return RotationSpeed; }
+	
+	void SetMovingSpeed(float NewMovingSpeed) { MovingSpeed = NewMovingSpeed; }
+	void SetRotationSpeed(float NewRotationSpeed) { RotationSpeed = NewRotationSpeed; }
 
 protected:
 	void BeginPlay() override;

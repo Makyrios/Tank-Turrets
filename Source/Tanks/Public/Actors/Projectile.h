@@ -12,14 +12,13 @@ class TANKS_API AProjectile : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	AProjectile();
-	void SetDamage(float& new_Damage);
+	void SetDamage(float& NewDamage) { ProjectileDamage = NewDamage; }
 	
 protected:
 	virtual void BeginPlay() override;
 
-	void DeleteProjectileAfterSpawn();
+	void DeleteProjectileAfterSpawnByLifeTime();
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UProjectileMovementComponent> ProjectileMovementComponent{nullptr};

@@ -22,22 +22,22 @@ public:
 	
 	void RotateTowerAI(FVector LookAtTarget);
 	void RotateMuzzleAI(FRotator LookAtTarget);
-
-	void SetDamage(float& new_Damage);
 	
-	float GetRotateDegreeMax() { return RotateDegreeMax; }
-	float GetRotateDegreeMin() { return RotateDegreeMin; }	
 	
-	inline float GetFireRate() const { return FireRate; }
-	inline float GetFireRange() const { return FireRange; }
-	inline float GetTowerRotationSpeed() const { return TowerRotationSpeed; }
-	inline TObjectPtr<UStaticMeshComponent> GetMeshTower() const { return MeshTower; }
-	inline TObjectPtr<UStaticMeshComponent> GetBaseMesh() const { return MeshBase; }
+	FORCEINLINE float GetRotateDegreeMax() const { return RotateDegreeMax; }
+	FORCEINLINE float GetRotateDegreeMin() const { return RotateDegreeMin; }	
 	
-	inline void SetFireRange(float NewFireRange) { FireRange = NewFireRange; }
-	inline void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
-	inline void SetTowerRotationSpeed(float NewRotationSpeed) { TowerRotationSpeed = NewRotationSpeed; }
-
+	FORCEINLINE float GetFireRate() const { return FireRate; }
+	FORCEINLINE float GetFireRange() const { return FireRange; }
+	FORCEINLINE float GetTowerRotationSpeed() const { return TowerRotationSpeed; }
+	FORCEINLINE TObjectPtr<UStaticMeshComponent> GetMeshTower() const { return MeshTower; }
+	FORCEINLINE TObjectPtr<UStaticMeshComponent> GetBaseMesh() const { return MeshBase; }
+	
+	FORCEINLINE void SetFireRange(float NewFireRange) { FireRange = NewFireRange; }
+	FORCEINLINE void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
+	FORCEINLINE void SetTowerRotationSpeed(float NewRotationSpeed) { TowerRotationSpeed = NewRotationSpeed; }
+	FORCEINLINE void SetDamage(float NewDamage) { Damage = NewDamage; }
+	
 protected:
 	virtual void BeginPlay() override;
 	
@@ -46,33 +46,33 @@ protected:
 	void UpdateHealthBarVisibility();
 
 	void InitializeHealthBar();
-
+	
 	void InitializeController();
 
 	bool MuzzleRotationInRange(const float& LookAtTarget);
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Components")
 	TObjectPtr<USceneComponent> SceneComponent{nullptr};
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshBase{nullptr};
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshTower{nullptr};
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> MeshMuzzle{nullptr};
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<class UCameraComponent> CameraComponent{nullptr};
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<class USpringArmComponent> SpringArmComponent{nullptr};
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<class USceneComponent> ProjectileSpawnPoint{nullptr};
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	TObjectPtr<class UHealthComponent> HealthComponent{nullptr};
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -85,30 +85,29 @@ protected:
 	TSubclassOf<class UHealthBarWidget> HealthBarWidgetClass;
 	
 	
-	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, Category = "Combat")
 	float TowerRotationSpeed{10.f};
 
-	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, Category = "Combat")
 	float MuzzleRotationSpeed{ 10.f };
 	
-	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, Category = "Combat")
 	float FireRate{2.f};
-
-	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
-	float FireRange{ 2000.f };
-
-	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
-	float Damage{ 10.f };
-
-	
 	FTimerHandle FireRateTimer;
 	
-	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float FireRange{ 2000.f };
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float Damage{ 10.f };
+	
+	
+	UPROPERTY(EditAnywhere, Category = "Combat")
 	float RotateDegreeMin{-12.0f};
-	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, Category = "Combat")
 	float RotateDegreeMax{15.0f};
 
-	UPROPERTY(EditAnywhere, Category = "UI", meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, Category = "UI")
 	float HealthBarVisibilityRange{ 1500.f };
 
 	

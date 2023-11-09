@@ -20,7 +20,10 @@ public:
 	
 	void RotateMuzzle(const struct FInputActionValue& Value);
 	void RotateTower(const struct FInputActionValue& Value);
+
+	void SetControlEnabledState(bool bEnableInput);
 protected:
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	TObjectPtr<class UInputMappingContext> DefaultMappingContext{nullptr};	
 	
@@ -43,13 +46,9 @@ protected:
 	virtual void SetupInputComponent() override;
 	virtual void Tick(float DeltaSeconds) override;
 	
-	
 	void Shoot(const struct FInputActionValue& Value);
 	
 	float LastShootTime = 0.f;
-	
-public:
-	void SetControlEnabledState(bool bEnableInput);
 
 private:
 	void OnGameStart();

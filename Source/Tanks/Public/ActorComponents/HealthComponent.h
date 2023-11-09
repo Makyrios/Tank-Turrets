@@ -22,8 +22,8 @@ public:
 
 	void HandleDestroy(AActor* DamageActor);
 	
-	inline float GetHealth() const { return Health; }
-	inline float GetMaxHealth() const { return MaxHealth; }
+	FORCEINLINE float GetHealth() const { return Health; }
+	FORCEINLINE float GetMaxHealth() const { return MaxHealth; }
 	
 protected:
 	virtual void BeginPlay() override;
