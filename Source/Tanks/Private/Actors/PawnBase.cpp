@@ -1,7 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "Actors/PawnBase.h"
-
-#include "Controllers/BaseAIController.h"
 #include "Actors/Projectile.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -9,7 +7,7 @@
 #include "Components/WidgetComponent.h"
 #include <Kismet/GameplayStatics.h>
 #include <Widgets/HealthBarWidget.h>
-#include "Kismet/KismetMathLibrary.h"
+
 
 // Sets default values
 APawnBase::APawnBase()
