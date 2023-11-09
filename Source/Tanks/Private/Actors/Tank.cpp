@@ -8,6 +8,15 @@ ATank::ATank()
 
 }
 
+void ATank::SetMovingSpeed(float NewMovingSpeed)
+{
+	MovingSpeed = NewMovingSpeed;
+}
+
+void ATank::SetRotationSpeed(float NewRotationSpeed)
+{
+	RotationSpeed = NewRotationSpeed;
+}
 
 void ATank::BeginPlay()
 {

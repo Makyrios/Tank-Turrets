@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameModes/BaseGameMode.h"
+#include "Controllers/BasePlayerController.h"
 #include "GameState/TanksGameState.h"
 #include "TanksGameMode.generated.h"
 
