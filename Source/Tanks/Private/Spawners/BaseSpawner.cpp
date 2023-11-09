@@ -25,8 +25,9 @@ void ABaseSpawner::SetObjectData(TObjectPtr<APawnBase> SpawnActor)
 		SpawnActor->SetTowerRotationSpeed(TowerRotationSpeed);
 		SpawnActor->SetFireRange(FireRange);
 		SpawnActor->SetFireRate(FireRate);
-		SpawnActor->SpawnDefaultController();
 		SpawnActor->SetDamage(Damage);
+		SpawnActor->SetHealthBarVisibilityRange(HealthBarVisibilityRange);
+		SpawnActor->SpawnDefaultController();
 	}
 }
 

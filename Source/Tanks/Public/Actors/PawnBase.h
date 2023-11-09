@@ -37,6 +37,7 @@ public:
 	inline void SetFireRange(float NewFireRange) { FireRange = NewFireRange; }
 	inline void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
 	inline void SetTowerRotationSpeed(float NewRotationSpeed) { TowerRotationSpeed = NewRotationSpeed; }
+	inline void SetHealthBarVisibilityRange(float NewRange) { HealthBarVisibilityRange = NewRange; }
 
 protected:
 	virtual void BeginPlay() override;

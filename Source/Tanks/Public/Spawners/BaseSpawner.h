@@ -37,6 +37,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
 	float Damage{ 10.f };
 
+	UPROPERTY(EditAnywhere, Category = "Spawned Object Settings")
+	float HealthBarVisibilityRange{ 1500.f };
+
 	UPROPERTY(EditAnywhere, Category = "Spawn Settings")
 	TArray<class ATargetPoint*> SpawnPoints;
 
