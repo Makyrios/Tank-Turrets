@@ -63,6 +63,8 @@ public:
 
 private:
 	UUserWidget* HUD;
+	UPROPERTY()
 	UStartGameWidget* StartGameWidget;
+	UPROPERTY()
 	UEndGameWidget* EndGameWidget;
 };

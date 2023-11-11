@@ -24,6 +24,8 @@ void UEndGameWidget::NativeConstruct()
 
 void UEndGameWidget::ChangeDisplayText(bool bPlayerWon)
 {
+	if (DisplayText == nullptr) return;
+
 	if (bPlayerWon)
 	{
 		DisplayText->SetText(FText::FromString("You won!"));

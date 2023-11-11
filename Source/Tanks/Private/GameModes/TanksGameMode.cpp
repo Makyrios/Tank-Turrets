@@ -16,6 +16,7 @@ void ATanksGameMode::HandleActorKilled(AActor* KilledActor)
 	if (KilledActor->ActorHasTag("Player"))
 	{
 		OnGameEnd.Broadcast(false);
+		OnGameEnd.Clear();
 	}
 	else if (KilledActor->ActorHasTag("Turret"))
 	{
@@ -24,6 +25,7 @@ void ATanksGameMode::HandleActorKilled(AActor* KilledActor)
 			if (TanksGameState->FindAllTurrets() - 1 <= 0)
 			{
 				OnGameEnd.Broadcast(true);
+				OnGameEnd.Clear();
 			}
 		}
 	}
