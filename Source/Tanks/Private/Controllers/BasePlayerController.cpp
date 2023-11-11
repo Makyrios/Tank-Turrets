@@ -37,7 +37,12 @@ void ABasePlayerController::OnPossess(APawn* InPawn)
 	{
 		PlayerChar->Tags.Add(FName("Player"));
 	}
-
+	
+	if (OnPossesPlayerSound)
+	{
+		UGameplayStatics::PlaySound2D(GetWorld(), OnPossesPlayerSound);
+	}
+	
 	InitializeControls();
 	InitializeWidgets();
 }
@@ -96,7 +101,7 @@ void ABasePlayerController::Shoot(const FInputActionValue& Value)
 	if (CurrentTime - LastShootTime >= PlayerChar->GetFireRate()) // Check if Xsec (FireRate) is passed from the last shoot
 	{
 		PlayerChar->Fire();
-		LastShootTime = CurrentTime; // Override LastShootTime (contains last shoot time) with time when actual shoot is happening
+		LastShootTime = CurrentTime; 
 	}
 }
 

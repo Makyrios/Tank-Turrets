@@ -26,6 +26,8 @@ AProjectile::AProjectile()
 	AudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio Component"));
 	AudioComponent->SetupAttachment(RootComponent);
 	
+	
+	
 }
 
 // Called when the game starts or when spawned
@@ -33,9 +35,17 @@ void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (StartFireSound)
+	{
+		AudioComponent->Sound = StartFireSound;
+		AudioComponent->Play();
+		
+		AudioComponent->Sound = nullptr;
+	}
+	
 	FTimerHandle TimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ThisClass::DeleteProjectileAfterSpawn, ProjectileLifeTime, false);
-
+	
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &ThisClass::OnHit);
 }
 
@@ -52,19 +62,27 @@ void AProjectile::SetDamage(float& NewDamage)
 	ProjectileDamage = NewDamage;
 }
 
-
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                         FVector NormalImpulse, const FHitResult& HitResult)
 {
+	
+	
 	if (OtherActor && OtherActor != this && OtherActor != GetOwner())
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, ProjectileDamage, GetInstigatorController(), this, UDamageType::StaticClass());
+		
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnHitParticle, GetActorLocation());
-		AudioComponent->Play();
+
+		if (OnHitSound)
+		{
+			AudioComponent->Sound = OnHitSound;
+			AudioComponent->Play();
+			
+			AudioComponent->Sound = nullptr;
+		}
 	}
 	
 	Destroy();
-	
 }
 
 

@@ -37,14 +37,15 @@ protected:
 	float ProjectileLifeTime{ 5.f };
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
-	TObjectPtr<class UParticleSystem> OnHitParticle;
+	TObjectPtr<class UParticleSystem> OnHitParticle {nullptr};
+	
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+	TObjectPtr<class UAudioComponent> AudioComponent {nullptr};
+	
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+	TObjectPtr<class USoundBase> OnHitSound {nullptr};
 
 	UPROPERTY(EditAnywhere, Category = "Sounds")
-	TObjectPtr<class USoundBase> OnHitSound;
-
-	UPROPERTY(EditAnywhere, Category = "Sounds")
-	TObjectPtr<class UAudioComponent> AudioComponent;
-
-	UPROPERTY(EditAnywhere, Category = "Sounds")
-	float SoundRange{200.f};
+	TObjectPtr<class USoundBase> StartFireSound {nullptr};
+	
 };

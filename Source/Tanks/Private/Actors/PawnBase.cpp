@@ -178,8 +178,12 @@ void APawnBase::SetDamage(float& NewDamage)
 void APawnBase::Fire()
 {
 	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentTransform());
-	Projectile->SetOwner(this);
-	Projectile->SetDamage(Damage);
+	if (Projectile)
+	{
+		Projectile->SetOwner(this);
+		Projectile->SetDamage(Damage);
+	}
+	
 	
 }
 
