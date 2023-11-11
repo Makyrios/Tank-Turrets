@@ -16,12 +16,10 @@ APawnBase::APawnBase()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Scene Component"));
-	RootComponent = SceneComponent;
 	
 	MeshBase = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Base"));
 	MeshBase->SetupAttachment(RootComponent);
+	RootComponent = MeshBase;
 	
 	MeshTower = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Tower"));
 	MeshTower->SetupAttachment(MeshBase);
@@ -83,7 +81,7 @@ void APawnBase::Tick(float DeltaTime)
 void APawnBase::UpdateHealthBarVisibility()
 {
 	FHitResult HitResult;
-	FVector Start = CameraComponent->GetComponentLocation();
+	FVector Start = MeshTower->GetComponentLocation();
 	FVector End = Start + (PlayerPawn->GetActorLocation() - Start).GetSafeNormal() * HealthBarVisibilityRange;
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
