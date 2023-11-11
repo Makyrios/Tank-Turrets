@@ -20,9 +20,10 @@ void ATanksGameMode::HandleActorKilled(AActor* KilledActor)
 	}
 	else if (KilledActor->ActorHasTag("Turret"))
 	{
+		OnEnemyKilled.Broadcast();
 		if (TanksGameState != nullptr)
 		{
-			if (TanksGameState->FindAllTurrets() - 1 <= 0)
+			if (TanksGameState->FindAllEnemies() <= 0)
 			{
 				OnGameEnd.Broadcast(true);
 				OnGameEnd.Clear();

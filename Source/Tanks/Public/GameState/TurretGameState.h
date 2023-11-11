@@ -4,17 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
+#include "GameState/BaseGameState.h"
 #include "TurretGameState.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TANKS_API ATurretGameState : public AGameStateBase
+class TANKS_API ATurretGameState : public ABaseGameState
 {
 	GENERATED_BODY()
 
 public:
-	int FindAllTanks() const;
-	
+	virtual int FindAllEnemies() const override;
+	inline virtual EEnemyType GetEnemyType() const { return EEnemyType::Tank; }
 };

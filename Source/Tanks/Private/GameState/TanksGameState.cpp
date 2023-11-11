@@ -6,7 +6,7 @@
 #include "Actors/Turret.h"
 
 
-int ATanksGameState::FindAllTurrets() const
+int ATanksGameState::FindAllEnemies() const
 {
 	TArray<AActor*> Turrets;
 	UGameplayStatics::GetAllActorsWithTag(this, FName("Turret"), Turrets);
