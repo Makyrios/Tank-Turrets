@@ -18,7 +18,6 @@ APawnBase::APawnBase()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	MeshBase = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Base"));
-	MeshBase->SetupAttachment(RootComponent);
 	RootComponent = MeshBase;
 	
 	MeshTower = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Tower"));
