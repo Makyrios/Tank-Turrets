@@ -47,9 +47,9 @@ void AProjectile::DeleteProjectileAfterSpawn()
 	}
 }
 
-void AProjectile::SetDamage(float& new_Damage)
+void AProjectile::SetDamage(float& NewDamage)
 {
-	ProjectileDamage = new_Damage;
+	ProjectileDamage = NewDamage;
 }
 
 

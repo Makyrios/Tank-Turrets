@@ -47,7 +47,6 @@ void UEndGameWidget::PlaySoundDependingOnState(bool bPlayerWon)
 	{
 		UGameplayStatics::PlaySound2D(GetWorld(), OnLoseSound);
 	}
-	
 }
 
 void UEndGameWidget::ClickRestartButton()

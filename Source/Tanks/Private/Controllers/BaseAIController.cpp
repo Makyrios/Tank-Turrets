@@ -95,17 +95,7 @@ void ABaseAIController::SetPlayer()
 	PlayerPawn = Cast<APawnBase>(UGameplayStatics::GetPlayerPawn(this, 0));
 }
 
-/*
-void ABaseAIController::SetFireRate(float newFireRate)
-{
-	FireRate = newFireRate;
-}
-*/
 
-//void ABaseAIController::SetFireRange(float newFireRange)
-//{
-//	FireRange = newFireRange;
-//}
 
 float ABaseAIController::GetFireRange() const
 {

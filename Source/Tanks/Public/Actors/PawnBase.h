@@ -23,10 +23,10 @@ public:
 	void RotateTowerAI(FVector LookAtTarget);
 	void RotateMuzzleAI(FRotator LookAtTarget);
 
-	void SetDamage(float& new_Damage);
+	void SetDamage(float& NewDamage);
 	
-	float GetRotateDegreeMax() { return RotateDegreeMax; }
-	float GetRotateDegreeMin() { return RotateDegreeMin; }	
+	inline float GetRotateDegreeMax() const { return RotateDegreeMax; }
+	inline float GetRotateDegreeMin() const { return RotateDegreeMin; }	
 	
 	inline float GetFireRate() const { return FireRate; }
 	inline float GetFireRange() const { return FireRange; }
@@ -34,10 +34,10 @@ public:
 	inline TObjectPtr<UStaticMeshComponent> GetMeshTower() const { return MeshTower; }
 	inline TObjectPtr<UStaticMeshComponent> GetBaseMesh() const { return MeshBase; }
 	
-	inline void SetFireRange(float NewFireRange) { FireRange = NewFireRange; }
-	inline void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
-	inline void SetTowerRotationSpeed(float NewRotationSpeed) { TowerRotationSpeed = NewRotationSpeed; }
-	inline void SetHealthBarVisibilityRange(float NewRange) { HealthBarVisibilityRange = NewRange; }
+	inline void SetFireRange(const float NewFireRange) { FireRange = NewFireRange; }
+	inline void SetFireRate(const float NewFireRate) { FireRate = NewFireRate; }
+	inline void SetTowerRotationSpeed(const float NewRotationSpeed) { TowerRotationSpeed = NewRotationSpeed; }
+	inline void SetHealthBarVisibilityRange(const float NewRange) { HealthBarVisibilityRange = NewRange; }
 
 protected:
 	virtual void BeginPlay() override;
