@@ -35,22 +35,34 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> HUDWidgetClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class UStartGameWidget> StartGameWidgetClass;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class UEndGameWidget> EndGameWidgetClass;
 	
 	TObjectPtr<class APawnBase> PlayerChar{nullptr};
 
-	virtual void BeginPlay() override;
+	float LastShootTime = 0.f;
+
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void SetupInputComponent() override;
 	virtual void Tick(float DeltaSeconds) override;
+	virtual void BeginPlay() override;
+	void InitializeControls();
+	void InitializeWidgets();
 	
 	
 	void Shoot(const struct FInputActionValue& Value);
 	
-	float LastShootTime = 0.f;
+	void OnGameStart();
+	void OnGameEnd(bool bPlayerWon);
 	
 public:
 	void SetControlEnabledState(bool bEnableInput);
 
 private:
-	void OnGameStart();
+	UUserWidget* HUD;
+	UStartGameWidget* StartGameWidget;
+	UEndGameWidget* EndGameWidget;
 };

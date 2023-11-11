@@ -13,7 +13,7 @@ void ATurretGameMode::HandleActorKilled(AActor* KilledActor)
 
 	if (KilledActor->ActorHasTag("Player"))
 	{
-		StopGame(false);
+		OnGameEnd.Broadcast(false);
 	}
 	else if (KilledActor->ActorHasTag("Tank"))
 	{
@@ -21,7 +21,7 @@ void ATurretGameMode::HandleActorKilled(AActor* KilledActor)
 		{
 			if (TurretGameState->FindAllTanks() - 1 <= 0)
 			{
-				StopGame(true);
+				OnGameEnd.Broadcast(true);
 			}
 		}
 	}

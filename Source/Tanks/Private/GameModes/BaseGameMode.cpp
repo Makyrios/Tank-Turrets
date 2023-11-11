@@ -7,6 +7,11 @@
 #include <Kismet/GameplayStatics.h>
 
 
+ABaseGameMode::ABaseGameMode()
+{
+
+}
+
 void ABaseGameMode::HandleActorKilled(AActor* KilledActor)
 {
 	if (KilledActor != nullptr)
@@ -28,9 +33,8 @@ void ABaseGameMode::BeginPlay()
 
 void ABaseGameMode::HandleGameStart()
 {
-	StartGame();
-
 	FTimerHandle StartGameTimerHandle;
-	GetWorldTimerManager().SetTimer(StartGameTimerHandle, [&]() { OnGameStart.Broadcast(); }, StartGameDelay, false);
+	GetWorldTimerManager().SetTimer(StartGameTimerHandle, [&]() 
+		{ if (OnGameStart.IsBound()) OnGameStart.Broadcast(); }, StartGameDelay, false);
 
 }

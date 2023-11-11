@@ -8,28 +8,24 @@
 #include <GameModes/BaseGameMode.h>
 #include <Kismet/GameplayStatics.h>
 #include "Blueprint/UserWidget.h"
+#include "Widgets/StartGameWidget.h"
+#include "Widgets/EndGameWidget.h"
 
 
 ABasePlayerController::ABasePlayerController()
 {
 	HUDWidgetClass = LoadClass<UUserWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/HUD/WBP_HUD.WBP_HUD_C'"));
+	StartGameWidgetClass = LoadClass<UUserWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/Game/WBP_StartGameWidget.WBP_StartGameWidget_C'"));
+	EndGameWidgetClass = LoadClass<UUserWidget>(NULL, TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/Blueprints/Widgets/Game/WBP_EndGameWidget.WBP_EndGameWidget_C'"));
 }
 
 void ABasePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetInputMode(FInputModeGameOnly());
-	bShowMouseCursor = false;
-
 	ABaseGameMode* GameMode = Cast<ABaseGameMode>(UGameplayStatics::GetGameMode(this));
 	GameMode->OnGameStart.AddUObject(this, &ABasePlayerController::OnGameStart);
-
-	if (HUDWidgetClass != nullptr)
-	{
-		UUserWidget* HUD = CreateWidget(this, HUDWidgetClass);
-		HUD->AddToViewport();
-	}
+	GameMode->OnGameEnd.AddUObject(this, &ABasePlayerController::OnGameEnd);
 }
 
 void ABasePlayerController::OnPossess(APawn* InPawn)
@@ -37,8 +33,38 @@ void ABasePlayerController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);
 
 	PlayerChar = Cast<APawnBase>(InPawn);
-	PlayerChar->Tags.Add(FName("Player"));
+	if (PlayerChar != nullptr)
+	{
+		PlayerChar->Tags.Add(FName("Player"));
+	}
+
+	InitializeControls();
+	InitializeWidgets();
+}
+
+void ABasePlayerController::InitializeControls()
+{
+	SetInputMode(FInputModeGameOnly());
+	bShowMouseCursor = false;
+
 	SetControlEnabledState(false);
+}
+
+void ABasePlayerController::InitializeWidgets()
+{
+	if (HUDWidgetClass != nullptr)
+	{
+		HUD = CreateWidget(this, HUDWidgetClass);
+	}
+	if (StartGameWidgetClass != nullptr)
+	{
+		StartGameWidget = CreateWidget<UStartGameWidget>(this, StartGameWidgetClass);
+		StartGameWidget->AddToViewport();
+	}
+	if (EndGameWidgetClass != nullptr)
+	{
+		EndGameWidget = CreateWidget<UEndGameWidget>(this, EndGameWidgetClass);
+	}
 }
 
 void ABasePlayerController::SetupInputComponent()
@@ -92,8 +118,19 @@ void ABasePlayerController::SetControlEnabledState(bool bEnableInput)
 void ABasePlayerController::OnGameStart()
 {
 	SetControlEnabledState(true);
+	HUD->AddToViewport();
 }
 
+void ABasePlayerController::OnGameEnd(bool bPlayerWon)
+{
+	SetControlEnabledState(false);
+	HUD->RemoveFromParent();
+	if (EndGameWidget != nullptr)
+	{
+		EndGameWidget->ChangeDisplayText(bPlayerWon);
+		EndGameWidget->AddToViewport();
+	}
+}
 
 void ABasePlayerController::Tick(float DeltaSeconds)
 {

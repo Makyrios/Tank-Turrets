@@ -18,6 +18,8 @@ void ATankAIController::ExecuteTasks(float DeltaTime)
 {
 	Super::ExecuteTasks(DeltaTime);
 
+	if (PlayerPawn == nullptr || TankPawn == nullptr) { return; }
+
 	RotateBaseToMovement();
 	SetRandomMoveLocation(DeltaTime);
 }

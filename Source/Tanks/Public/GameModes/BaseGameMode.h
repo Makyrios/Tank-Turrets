@@ -9,6 +9,7 @@
 #include "BaseGameMode.generated.h"
 
 DECLARE_MULTICAST_DELEGATE(FOnGameStart);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnGameEnd, bool);
 
 /**
  * 
@@ -19,16 +20,13 @@ class TANKS_API ABaseGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	ABaseGameMode();
+
 	FOnGameStart OnGameStart;
+	FOnGameEnd OnGameEnd;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Rules)
 	float StartGameDelay = 2;
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void StartGame();
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void StopGame(bool bPlayerWon);
 
 	virtual void HandleActorKilled(AActor* KilledActor);
 
