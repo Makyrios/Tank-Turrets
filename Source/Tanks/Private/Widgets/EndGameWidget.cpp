@@ -34,6 +34,19 @@ void UEndGameWidget::ChangeDisplayText(bool bPlayerWon)
 	{
 		DisplayText->SetText(FText::FromString("You lost!"));
 	}
+	PlaySoundDependingOnState(bPlayerWon);
+}
+
+void UEndGameWidget::PlaySoundDependingOnState(bool bPlayerWon)
+{
+	if (bPlayerWon)
+	{
+		UGameplayStatics::PlaySound2D(GetWorld(), OnWinSound);
+	}
+	else
+	{
+		UGameplayStatics::PlaySound2D(GetWorld(), OnLoseSound);
+	}
 }
 
 void UEndGameWidget::ClickRestartButton()

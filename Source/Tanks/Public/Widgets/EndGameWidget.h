@@ -32,11 +32,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	class UTextBlock* MainMenuText;
 
-
+	UPROPERTY(EditAnywhere)
+	class USoundBase* OnWinSound{};
+	UPROPERTY(EditAnywhere)
+	class USoundBase* OnLoseSound{};
 public:
 	void NativeConstruct() override;
 	void ChangeDisplayText(bool bPlayerWon);
 
+	void PlaySoundDependingOnState(bool bPlayerWon);
 private:
 	UFUNCTION()
 	void ClickRestartButton();

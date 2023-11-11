@@ -18,7 +18,6 @@ APawnBase::APawnBase()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	MeshBase = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Base"));
-	MeshBase->SetupAttachment(RootComponent);
 	RootComponent = MeshBase;
 	
 	MeshTower = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Tower"));
@@ -81,10 +80,12 @@ void APawnBase::Tick(float DeltaTime)
 void APawnBase::UpdateHealthBarVisibility()
 {
 	FHitResult HitResult;
-	FVector Start = MeshTower->GetComponentLocation();
-	FVector End = Start + (PlayerPawn->GetActorLocation() - Start).GetSafeNormal() * HealthBarVisibilityRange;
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
+	
+	FVector Start = MeshTower->GetComponentLocation();
+	FVector End = Start + (PlayerPawn->GetActorLocation() - Start).GetSafeNormal() * HealthBarVisibilityRange;
+	
 	bool bWasHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility, Params);
 	if (bWasHit)
 	{
@@ -169,9 +170,9 @@ void APawnBase::RotateMuzzleAI(FRotator LookAtTarget)
 	}	
 }
 
-void APawnBase::SetDamage(float& new_Damage)
+void APawnBase::SetDamage(float& NewDamage)
 {
-	Damage = new_Damage;
+	Damage = NewDamage;
 }
 
 void APawnBase::Fire()
