@@ -18,7 +18,6 @@ void ABaseGameMode::HandleActorKilled(AActor* KilledActor)
 	{
 		UE_LOG(LogTemp, Display, TEXT("%s actor is killed"), *KilledActor->GetActorNameOrLabel());
 	}
-
 }
 
 void ABaseGameMode::BeginPlay()

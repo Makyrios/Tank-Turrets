@@ -10,6 +10,7 @@
 
 DECLARE_MULTICAST_DELEGATE(FOnGameStart);
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnGameEnd, bool);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnEnemyKilled);
 
 /**
  * 
@@ -24,6 +25,8 @@ public:
 
 	FOnGameStart OnGameStart;
 	FOnGameEnd OnGameEnd;
+	UPROPERTY(BlueprintAssignable)
+	FOnEnemyKilled OnEnemyKilled;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Rules)
 	float StartGameDelay = 2;

@@ -6,7 +6,8 @@
 #include <Kismet/GameplayStatics.h>
 
 
-int ATurretGameState::FindAllTanks() const
+
+int ATurretGameState::FindAllEnemies() const
 {
 	TArray<AActor*> Tanks;
 	UGameplayStatics::GetAllActorsOfClass(this, ATank::StaticClass(), Tanks);
