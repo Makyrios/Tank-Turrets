@@ -63,8 +63,7 @@ void APawnBase::BeginPlay()
 	if (!bIsPlayer)
 	{
 		InitializeHealthBar();
-	}
-
+	}	
 }
 
 void APawnBase::Tick(float DeltaTime)
@@ -77,23 +76,58 @@ void APawnBase::Tick(float DeltaTime)
 	}
 }
 
-void APawnBase::UpdateHealthBarVisibility()
-{
+bool APawnBase::InHealthBarVisibilityRange()
+{	
 	FHitResult HitResult;
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
-	
+
 	FVector Start = MeshTower->GetComponentLocation();
 	FVector End = Start + (PlayerPawn->GetActorLocation() - Start).GetSafeNormal() * HealthBarVisibilityRange;
-	
+
 	bool bWasHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility, Params);
 	if (bWasHit)
 	{
 		if (HitResult.GetActor()->ActorHasTag(FName("Player")))
 		{
-			HealthBarWidgetComponent->SetVisibility(true);
-			return;
+			return true;
 		}
+	}
+	return false;
+}
+
+float APawnBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	
+	ShowHealthBarOnDamageTaken();
+	return 0.0f;
+}
+
+void APawnBase::ShowHealthBarOnDamageTaken()
+{
+	LastTimeDamageTaken = GetWorld()->GetTimeSeconds();
+	HealthBarWidgetComponent->SetVisibility(true);
+	TakenDamageRecently = true;
+}
+
+void APawnBase::UpdateHealthBarVisibility()
+{		
+	if (TakenDamageRecently)
+	{	
+		float CurrentTime = GetWorld()->GetTimeSeconds();
+		if (CurrentTime - LastTimeDamageTaken >= TimeToShowHealthOnDamage)
+		{
+			TakenDamageRecently = false;
+		}
+
+		return;
+	}
+
+	if (InHealthBarVisibilityRange())
+	{
+		HealthBarWidgetComponent->SetVisibility(true);
+		return;
 	}
 	HealthBarWidgetComponent->SetVisibility(false);
 }
@@ -174,6 +208,7 @@ void APawnBase::SetDamage(float& NewDamage)
 {
 	Damage = NewDamage;
 }
+
 
 void APawnBase::Fire()
 {
