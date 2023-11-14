@@ -14,12 +14,12 @@ Player damage can be modified in the BP_Turret class.
 
 ## Screenshots
 
-![App Screenshot](https://imgur.com/nTqhawy)
-![App Screenshot](https://imgur.com/176r2FP)
-![App Screenshot](https://imgur.com/fXdezq9)
-![App Screenshot](https://imgur.com/21i3ZBr)
-![App Screenshot](https://imgur.com/sbeyERb)
-![App Screenshot](https://imgur.com/aO6yoR6)
-![App Screenshot](https://imgur.com/FqrMmEW)
-![App Screenshot](https://imgur.com/IBzV5SV)
+![App Screenshot](https://i.imgur.com/nTqhawy.jpg)
+![App Screenshot](https://imgur.com/176r2FP.jpg)
+![App Screenshot](https://imgur.com/fXdezq9.jpg)
+![App Screenshot](https://imgur.com/21i3ZBr.jpg)
+![App Screenshot](https://imgur.com/sbeyERb.jpg)
+![App Screenshot](https://imgur.com/aO6yoR6.jpg)
+![App Screenshot](https://imgur.com/FqrMmEW.jpg)
+![App Screenshot](https://imgur.com/IBzV5SV.jpg)
 
